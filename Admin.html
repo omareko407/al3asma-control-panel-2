@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة القيادة | سيرفر العاصمة (آمن)</title>
+    <link rel="icon" type="image/png" href="https://i.postimg.cc/dVQc70hW/889cfe49-537a-4341-8864-45211c47d0a9.png">
+    <style>
+        :root { --bg-dark: #050505; --panel-bg: #121216; --border-color: #22222a; --accent-glow: #00e5ff; --text-main: #ffffff; --text-muted: #8892b0; --success: #10b981; --warning: #f59e0b; --danger: #ef4444; }
+        body { background-color: var(--bg-dark); color: var(--text-main); font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; display: flex; height: 100vh; overflow: hidden; }
+        #authScreen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-dark); display: flex; justify-content: center; align-items: center; z-index: 9999; }
+        .auth-box { background: var(--panel-bg); padding: 30px; border-radius: 16px; border: 1px solid var(--border-color); text-align: center; width: 90%; max-width: 350px; }
+        .auth-box img { width: 100px; margin-bottom: 15px; filter: drop-shadow(0 0 10px rgba(0, 229, 255, 0.3)); }
+        .auth-box input { width: 100%; padding: 12px; margin-bottom: 15px; background: rgba(0,0,0,0.3); border: 1px solid var(--border-color); border-radius: 8px; color: #fff; box-sizing: border-box; }
+        .btn-auth { background: linear-gradient(90deg, #00b6cc, var(--accent-glow)); color: #000; border: none; padding: 12px; width: 100%; font-size: 1.1rem; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        .toggle-link { color: var(--accent-glow); cursor: pointer; font-size: 0.9rem; margin-top: 15px; display: block; text-decoration: underline; }
+        
+        .mobile-header { display: none; background: var(--panel-bg); padding: 15px; border-bottom: 1px solid var(--border-color); justify-content: space-between; align-items: center; }
+        .menu-toggle { background: transparent; color: #fff; border: 1px solid var(--border-color); padding: 5px 10px; border-radius: 5px; cursor: pointer; }
+        .sidebar { width: 250px; background: var(--panel-bg); border-left: 1px solid var(--border-color); display: flex; flex-direction: column; padding: 20px 0; transition: transform 0.3s; z-index: 1000; }
+        .sidebar-header { text-align: center; padding-bottom: 20px; border-bottom: 1px solid var(--border-color); margin-bottom: 10px; }
+        .nav-item { padding: 15px 20px; color: var(--text-muted); cursor: pointer; border-right: 3px solid transparent; }
+        .nav-item:hover, .nav-item.active { background: rgba(0, 229, 255, 0.05); color: var(--accent-glow); border-right-color: var(--accent-glow); }
+        .main-wrapper { flex: 1; display: flex; flex-direction: column; overflow: hidden; display: none; }
+        .main-content { flex: 1; padding: 20px; overflow-y: auto; }
+        .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid var(--border-color); }
+        .content-section { display: none; }
+        .active-section { display: block; }
+        
+        .search-box { width: 100%; padding: 12px; margin-bottom: 20px; background: #0f1319; border: 1px solid var(--border-color); border-radius: 8px; color: #fff; box-sizing: border-box; }
+        .dept-title { color: #fff; border-bottom: 2px solid var(--accent-glow); display: inline-block; padding-bottom: 5px; margin-bottom: 20px; }
+        .section-header { background: rgba(0, 229, 255, 0.05); padding: 10px; border-radius: 8px; margin-bottom: 10px; font-weight: bold; border: 1px solid var(--border-color); }
+        .table-container { width: 100%; overflow-x: auto; background: var(--panel-bg); border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 30px; }
+        table { width: 100%; border-collapse: collapse; min-width: 600px; }
+        th, td { padding: 12px; text-align: right; border-bottom: 1px solid var(--border-color); font-size: 0.9rem; }
+        th { background: rgba(255, 255, 255, 0.02); color: var(--text-muted); }
+        .status { padding: 4px 8px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; }
+        .status.pending { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
+        .status.accepted { background: rgba(16, 185, 129, 0.1); color: var(--success); }
+        .status.rejected { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
+        .btn-action { background: var(--accent-glow); color: #000; border: none; padding: 6px 12px; border-radius: 5px; cursor: pointer; font-weight: bold; transition: 0.3s;}
+        .btn-action:hover { opacity: 0.8; }
+
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); justify-content: center; align-items: center; z-index: 2000; padding: 20px; box-sizing: border-box;}
+        .modal-content { background: var(--panel-bg); padding: 25px; border-radius: 12px; width: 100%; max-width: 650px; border: 1px solid var(--border-color); max-height: 90vh; overflow-y: auto;}
+        .form-row { margin-bottom: 15px; border-bottom: 1px solid #222; padding-bottom: 10px; }
+        .form-row span { color: var(--text-muted); font-size: 0.9rem; display: block; margin-bottom: 5px; font-weight: bold;}
+        .form-row div { color: #fff; font-size: 1.05rem; line-height: 1.6; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 6px; border: 1px solid #222;}
+        .reject-box { background: rgba(239, 68, 68, 0.1); border: 1px solid var(--danger); padding: 15px; border-radius: 8px; margin-bottom: 15px; display: none; }
+        .reject-box select, .reject-box input { width: 100%; padding: 10px; margin-bottom: 10px; background: rgba(0,0,0,0.5); color: #fff; border: 1px solid var(--danger); border-radius: 5px; box-sizing: border-box;}
+        @media (max-width: 768px) { body { flex-direction: column; } .mobile-header { display: flex; } .sidebar { position: fixed; top: 60px; right: 0; height: calc(100vh - 60px); transform: translateX(100%); } .sidebar.active-mobile { transform: translateX(0); } .main-content { padding: 15px; } }
+    </style>
+</head>
+<body>
+
+    <div id="authScreen">
+        <div class="auth-box" id="loginForm">
+            <img src="https://i.postimg.cc/dVQc70hW/889cfe49-537a-4341-8864-45211c47d0a9.png" alt="Logo">
+            <h2 style="color: var(--accent-glow); margin-top:0;">تسجيل الدخول</h2>
+            <input type="email" id="loginEmail" placeholder="البريد الإلكتروني" required>
+            <input type="password" id="loginPassword" placeholder="كلمة المرور" required>
+            <button class="btn-auth" onclick="window.handleLogin()" id="btnLogin">دخول للنظام</button>
+            <p id="loginError" style="color: var(--danger); display: none; margin-top:10px;">بيانات غير صحيحة أو الحساب معلق!</p>
+            <a class="toggle-link" onclick="window.toggleAuthMode()">طلب انضمام لطاقم الإدارة</a>
+        </div>
+        
+        <div class="auth-box" id="registerForm" style="display: none;">
+            <img src="https://i.postimg.cc/dVQc70hW/889cfe49-537a-4341-8864-45211c47d0a9.png" alt="Logo">
+            <h2 style="color: var(--warning); margin-top:0;">طلب انضمام للإدارة</h2>
+            <input type="text" id="regName" placeholder="الاسم الشخصي" required>
+            <input type="email" id="regEmail" placeholder="البريد الإلكتروني" required>
+            <input type="password" id="regPassword" placeholder="أنشئ كلمة مرور لك" required>
+            <button class="btn-auth" style="background: var(--warning);" onclick="window.handleRegister()" id="btnRegister">إرسال الطلب</button>
+            <a class="toggle-link" onclick="window.toggleAuthMode()">عودة لتسجيل الدخول</a>
+        </div>
+    </div>
+
+    <div class="mobile-header">
+        <h3 style="margin: 0; color: var(--accent-glow);">سيرفر العاصمة</h3>
+        <button class="menu-toggle" onclick="document.getElementById('sidebar').classList.toggle('active-mobile')">☰ القائمة</button>
+    </div>
+
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header"><h2 style="color: var(--accent-glow); margin: 0;">الإدارة</h2><div id="myEmailDisplay" style="color: #aaa; font-size: 0.8rem; margin-top:5px;"></div><div id="myRoleDisplay" style="color: var(--warning); font-size: 0.8rem; font-weight:bold;"></div></div>
+        <div class="nav-item active" onclick="window.switchTab('dashboardTab', this)">📊 الإحصائيات</div>
+        <div class="nav-item" id="nav-city" style="display:none;" onclick="window.switchTab('cityTab', this)">🏙️ شؤون المدينة</div>
+        <div class="nav-item" id="nav-mgmt" style="display:none;" onclick="window.switchTab('mgmtTab', this)">💼 شؤون الإدارة</div>
+        <div class="nav-item" id="nav-health" style="display:none;" onclick="window.switchTab('healthTab', this)">🩺 وزارة الصحة</div>
+        <div class="nav-item" id="nav-interior" style="display:none;" onclick="window.switchTab('interiorTab', this)">🦅 وزارة الداخلية</div>
+        <div class="nav-item" onclick="window.switchTab('logsTab', this)">📜 سجل العمليات</div>
+        <div class="nav-item" id="nav-roles" style="display:none; border-top: 1px solid #222; margin-top: auto; color: var(--warning);" onclick="window.switchTab('rolesTab', this)">👑 إدارة الرتب</div>
+    </div>
+
+    <div class="main-wrapper" id="mainWrapper">
+        <div class="main-content">
+            <div class="topbar">
+                <h2 style="margin: 0;">نظام التقديمات والإدارة</h2>
+                <button style="background: transparent; color: var(--danger); border: 1px solid var(--danger); padding: 5px 15px; border-radius: 5px;" onclick="window.logout()">تسجيل خروج</button>
+            </div>
+
+            <div id="dashboardTab" class="content-section active-section">
+                <h2 class="dept-title">📊 لوحة التحكم</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;">
+                    <div style="background: var(--panel-bg); padding: 20px; border-radius: 8px; border: 1px solid #222; text-align:center;">إجمالي التقديمات<br><b style="font-size: 2rem; color: var(--accent-glow);" id="stat-total">0</b></div>
+                    <div style="background: var(--panel-bg); padding: 20px; border-radius: 8px; border: 1px solid #222; text-align:center;">المعلقين<br><b style="font-size: 2rem; color: var(--warning);" id="stat-pending">0</b></div>
+                    <div style="background: var(--panel-bg); padding: 20px; border-radius: 8px; border: 1px solid #222; text-align:center;">المقبولين<br><b style="font-size: 2rem; color: var(--success);" id="stat-accepted">0</b></div>
+                    <div style="background: var(--panel-bg); padding: 20px; border-radius: 8px; border: 1px solid #222; text-align:center;">المرفوضين<br><b style="font-size: 2rem; color: var(--danger);" id="stat-rejected">0</b></div>
+                </div>
+            </div>
+
+            <div id="cityTab" class="content-section">
+                <h2 class="dept-title">🏙️ تقديمات المدينة</h2>
+                <input type="text" class="search-box" id="search-city" placeholder="🔍 ابحث بالاسم، الآيدي، أو الديسكورد..." onkeyup="window.filterTables('city')">
+                <div class="section-header" style="color: var(--warning);">⏳ المعلقين</div>
+                <div class="table-container"><table><thead><tr><th>الاسم</th><th>الآيدي</th><th>الديسكورد</th><th>التاريخ</th><th>الحالة</th><th>الإجراء</th></tr></thead><tbody id="city-pending"></tbody></table></div>
+                <div class="section-header" style="color: var(--success);">✅ المقبولين</div>
+                <div class="table-container"><table><thead><tr><th>الاسم</th><th>الآيدي</th><th>الديسكورد</th><th>تاريخ القبول</th><th>الأدمن</th></tr></thead><tbody id="city-accepted"></tbody></table></div>
+                <div class="section-header" style="color: var(--danger);">❌ المرفوضين</div>
+                <div class="table-container"><table><thead><tr><th>الاسم</th><th>الآيدي</th><th>الديسكورد</th><th>تاريخ الرفض</th><th>السبب</th><th>الأدمن</th></tr></thead><tbody id="city-rejected"></tbody></table></div>
+            </div>
+
+            <div id="mgmtTab" class="content-section">
+                <h2 class="dept-title">💼 تقديمات الإدارة</h2>
+                <input type="text" class="search-box" id="search-mgmt" placeholder="🔍 ابحث بالاسم، الآيدي..." onkeyup="window.filterTables('mgmt')">
+                <div class="section-header" style="color: var(--warning);">⏳ المعلقين</div>
+                <div class="table-container"><table><thead><tr><th>الاسم</th><th>الآيدي</th><th>التاريخ</th><th>الحالة</th><th>الإجراء</th></tr></thead><tbody id="mgmt-pending"></tbody></table></div>
+                <div class="section-header" style="color: var(--success);">✅ المقبولين</div>
+                <div class="table-container"><table><thead><tr><th>الاسم</th><th>الآيدي</th><th>تاريخ القبول</th><th>الأدمن</th></tr></thead><tbody id="mgmt-accepted"></tbody></table></div>
+                <div class="section-header" style="color: var(--danger);">❌ المرفوضين</div>
+                <div class="table-container"><table><thead><tr><th>الاسم</th><th>الآيدي</th><th>تاريخ الرفض</th><th>السبب</th><th>الأدمن</th></tr></thead><tbody id="mgmt-rejected"></tbody></table></div>
+            </div>
+
+            <div id="healthTab" class="content-section">
+                <h2 class="dept-title">🩺 تقديمات وزارة الصحة</h2>
+                <input type="text" class="search-box" id="search-health" placeholder="🔍 ابحث بالاسم، الآيدي..." onkeyup="window.filterTables('health')">
+                <div class="section-header" style="color: var(--warning);">⏳ المعلقين</div>
+                <div class="table-container"><table><thead><tr><th>الاسم</th><th>الآيدي</th><th>التاريخ</th><th>الحالة</th><th>الإجراء</th></tr></thead><tbody id="health-pending"></tbody></table></div>
+                <div class="section-header" style="color: var(--success);">✅ المقبولين</div>
+                <div class="table-container"><table><thead><tr><th>الاسم</th><th>الآيدي</th><th>تاريخ القبول</th><th>الأدمن</th></tr></thead><tbody id="health-accepted"></tbody></table></div>
+                <div class="section-header" style="color: var(--danger);">❌ المرفوضين</div>
+                <div class="table-container"><table><thead><tr><th>الاسم</th><th>الآيدي</th><th>تاريخ الرفض</th><th>السبب</th><th>الأدمن</th></tr></thead><tbody id="health-rejected"></tbody></table></div>
+            </div>
+
+            <div id="interiorTab" class="content-section">
+                <h2 class="dept-title">🦅 تقديمات وزارة الداخلية</h2>
+                <input type="text" class="search-box" id="search-interior" placeholder="🔍 ابحث بالاسم، الآيدي..." onkeyup="window.filterTables('interior')">
+                <div class="section-header" style="color: var(--warning);">⏳ المعلقين</div>
+                <div class="table-container"><table><thead><tr><th>الاسم</th><th>الآيدي</th><th>التاريخ</th><th>الحالة</th><th>الإجراء</th></tr></thead><tbody id="interior-pending"></tbody></table></div>
+                <div class="section-header" style="color: var(--success);">✅ المقبولين</div>
+                <div class="table-container"><table><thead><tr><th>الاسم</th><th>الآيدي</th><th>تاريخ القبول</th><th>الأدمن</th></tr></thead><tbody id="interior-accepted"></tbody></table></div>
+                <div class="section-header" style="color: var(--danger);">❌ المرفوضين</div>
+                <div class="table-container"><table><thead><tr><th>الاسم</th><th>الآيدي</th><th>تاريخ الرفض</th><th>السبب</th><th>الأدمن</th></tr></thead><tbody id="interior-rejected"></tbody></table></div>
+            </div>
+
+            <div id="logsTab" class="content-section">
+                <h2 class="dept-title">📜 سجل العمليات (Audit Logs)</h2>
+                <div class="table-container"><table><thead><tr><th>الأدمن</th><th>العملية</th><th>التاريخ والوقت</th></tr></thead><tbody id="logs-body"></tbody></table></div>
+            </div>
+
+            <div id="rolesTab" class="content-section">
+                <h2 class="dept-title" style="color: var(--warning); border-bottom-color: var(--warning);">👑 إدارة المستخدمين والرتب</h2>
+                <div class="table-container"><table><thead><tr><th>الاسم</th><th>البريد (UID)</th><th>الرتبة الحالية</th><th>تغيير الرتبة</th></tr></thead><tbody id="admin-users-body">
+                </tbody></table></div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="reviewModal" class="modal">
+        <div class="modal-content">
+            <h3 style="margin-top:0; color: var(--accent-glow); border-bottom: 2px solid #333; padding-bottom: 10px;">📄 نموذج تقديم (<span id="modalDeptName"></span>)</h3>
+            <div id="modalContentData"></div>
+            
+            <div class="modal-actions" id="modalActions">
+                <div style="display: flex; gap: 10px; margin-bottom: 15px; width: 100%;" id="primaryActions">
+                    <button class="btn-action" style="background: var(--warning); color: #000; flex: 1; font-size: 1.1rem;" onclick="window.showAcceptSection()">مقبول مبدئياً</button>
+                    <button class="btn-action" style="background: var(--danger); color: #fff; flex: 1; font-size: 1.1rem;" onclick="window.showRejectSection()">رفض الطلب</button>
+                </div>
+                <div id="acceptSection" style="display: none; width: 100%;">
+                    <button class="btn-action" style="background: var(--success); width: 100%; font-size: 1.1rem;" onclick="window.submitDecision('accepted', 'وايت ليست', '')">وايت ليست (قبول نهائي)</button>
+                </div>
+                <div id="rejectSection" class="reject-box">
+                    <label style="color: #fff; font-weight: bold; display: block; margin-bottom: 5px;">اختر نوع الرفض:</label>
+                    <select id="rejectType"><option value="رفض 1">رفض 1</option><option value="رفض 2">رفض 2</option><option value="رفض 3">رفض 3</option></select>
+                    <label style="color: #fff; font-weight: bold; display: block; margin-bottom: 5px;">السبب بالتفصيل:</label>
+                    <input type="text" id="rejectReasonText" placeholder="السبب..." required>
+                    <button class="btn-action" style="background: var(--danger); width: 100%; margin-top: 10px;" onclick="window.executeReject()">تأكيد الرفض</button>
+                </div>
+                <button class="btn-action" style="background: #ef4444; width: 100%; margin-top: 10px; border: 1px solid #fff;" onclick="window.deleteApplication()">🗑️ حذف الطلب نهائياً</button>
+                <button class="btn-action" style="background: #333; width: 100%; margin-top: 10px;" onclick="document.getElementById('reviewModal').style.display='none'">إغلاق</button>
+            </div>
+        </div>
+    </div>
+    <script type="module">
+const _0x3e1d = ["AIzaSyB9TBHZn3qzhb2eKH9rCTF4rspdLUvRftM","al3asma.firebaseapp.com","al3asma","al3asma.firebasestorage.app","108484620974","1:108484620974:web:04e448d20529c14e89733f","G-W4G5YQ5HFE","https://discord.com/api/webhooks/1519446529289617543/lzSDVGifCJT_bpHkzhNoY7LqzqLOJJRQk3SLyXnHVbgh_rDAgGPTzO4bxp5YC0PRxKq6","POST","Content-Type","application/json","Error Webhook:","","loginForm","registerForm","none","block","regEmail","regName","regPassword","btnRegister","أكمل البيانات!","جاري الإنشاء...","admins","pending","تم إنشاء حسابك الآمن. يرجى انتظار تفعيل رئيس مجلس الإدارة.","error: ","إرسال الطلب","loginEmail","loginPassword","btnLogin","أدخل البريد وكلمة المرور.","جاري التحقق...","حسابك قيد المراجعة من رئيس مجلس الإدارة ولم يتم تفعيله بعد.","دخول للنظام","لا توجد بيانات صلاحيات لهذا الحساب.","loginError","authScreen","mainWrapper","flex","myEmailDisplay","الحساب: ","myRoleDisplay","رتبة: ","chairman","nav-city","nav-mgmt","nav-health","nav-interior","nav-roles","hr","management","health_affairs","interior_affairs","applications","admin-users-body","role_","تم تحديث الرتبة بنجاح!",".nav-item","active",".content-section","active-section","sidebar","active-mobile","city","mgmt","health","interior","accepted","rejected","-pending","<tr><td colspan='6'>لا يوجد</td></tr>","-accepted","<tr><td colspan='5'>لا يوجد</td></tr>","-rejected","stat-total","stat-pending","stat-accepted","stat-rejected","search-","Tab",".search-row","المدينة","الإدارة","وزارة الصحة","وزارة الداخلية","modalDeptName","modalContentData","primaryActions","acceptSection","rejectSection","rejectReasonText","reviewModal","rejectType","اكتب السبب!","الطلب غير موجود!","ar-EG","قبل (",")","رفض (",") بسبب: ","logs-body","afterbegin","✅ وايت ليست (قبول نهائي)","❌ رفض الطلب","👤 اسم مقدم الطلب","غير معروف","🆔 آيدي اللاعب (ID)","🎮 حساب الديسكورد","لا يوجد","📈 الحالة الجديدة","👮 الأدمن المسؤول","⚠️ نوع الرفض","📝 السبب بالتفصيل","خطأ في تحديث البيانات","هل أنت متأكد من حذف هذا الطلب نهائياً من قاعدة البيانات؟ لا يمكن التراجع عن هذا الإجراء.","تم حذف الطلب نهائياً.","👤 الاسم","🏢 القسم","خطأ في حذف الطلب."];
+function _0x2b8c(idx) { return _0x3e1d[idx]; }
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, collection, getDocs, doc, setDoc, updateDoc, getDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+const firebaseConfig = {
+    apiKey: _0x2b8c(0),
+    authDomain: _0x2b8c(1),
+    projectId: _0x2b8c(2),
+    storageBucket: _0x2b8c(3),
+    messagingSenderId: _0x2b8c(4),
+    appId: _0x2b8c(5),
+    measurementId: _0x2b8c(6)
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
+
+const DISCORD_WEBHOOK_URL = _0x2b8c(7);
+
+async function sendWebhook(embed) {
+    if (!DISCORD_WEBHOOK_URL) return;
+    try {
+        await fetch(DISCORD_WEBHOOK_URL, {
+            method: _0x2b8c(8),
+            headers: { [_0x2b8c(9)]: _0x2b8c(10) },
+            body: JSON.stringify({ embeds: [embed] })
+        });
+    } catch (error) {
+        console.error(_0x2b8c(11), error);
+    }
+}
+
+let currentAdmin = { uid: _0x2b8c(12), name: _0x2b8c(12), role: _0x2b8c(12), email: _0x2b8c(12) };
+let activeAppId = null;
+let allApps = [];
+
+window.toggleAuthMode = function() {
+    const login = document.getElementById(_0x2b8c(13));
+    const reg = document.getElementById(_0x2b8c(14));
+    if (login.style.display === _0x2b8c(15)) {
+        login.style.display = _0x2b8c(16);
+        reg.style.display = _0x2b8c(15);
+    } else {
+        login.style.display = _0x2b8c(15);
+        reg.style.display = _0x2b8c(16);
+    }
+};
+
+window.handleRegister = async function() {
+    const email = document.getElementById(_0x2b8c(17)).value;
+    const name = document.getElementById(_0x2b8c(18)).value;
+    const pass = document.getElementById(_0x2b8c(19)).value;
+    const btn = document.getElementById(_0x2b8c(20));
+
+    if (!email || !name || !pass) return alert(_0x2b8c(21));
+    btn.innerText = _0x2b8c(22);
+    btn.disabled = true;
+    
+    try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, pass);
+        const user = userCredential.user;
+        
+        await setDoc(doc(db, _0x2b8c(23), user.uid), { 
+            name: name, 
+            email: email, 
+            role: _0x2b8c(24)
+        });
+        
+        await signOut(auth);
+        alert(_0x2b8c(25));
+        window.toggleAuthMode();
+    } catch (error) { 
+        console.error(error); 
+        alert(_0x2b8c(26) + error.message); 
+    } finally {
+        btn.innerText = _0x2b8c(27);
+        btn.disabled = false;
+    }
+};
+
+window.handleLogin = async function() {
+    const email = document.getElementById(_0x2b8c(28)).value;
+    const pass = document.getElementById(_0x2b8c(29)).value;
+    const btn = document.getElementById(_0x2b8c(30));
+
+    if (!email || !pass) return alert(_0x2b8c(31));
+    btn.innerText = _0x2b8c(32);
+    btn.disabled = true;
+
+    try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, pass);
+        const user = userCredential.user;
+
+        const docSnap = await getDoc(doc(db, _0x2b8c(23), user.uid));
+        if (docSnap.exists()) {
+            const adminData = docSnap.data();
+            if (adminData.role === _0x2b8c(24)) {
+                await signOut(auth);
+                alert(_0x2b8c(33));
+                btn.innerText = _0x2b8c(34);
+                btn.disabled = false;
+                return;
+            }
+            currentAdmin = { uid: user.uid, ...adminData };
+            enterSystem();
+        } else {
+            await signOut(auth);
+            alert(_0x2b8c(35));
+        }
+    } catch (e) { 
+        console.error(e); 
+        document.getElementById(_0x2b8c(36)).style.display = _0x2b8c(16); 
+    } finally {
+        btn.innerText = _0x2b8c(34);
+        btn.disabled = false;
+    }
+};
+
+onAuthStateChanged(auth, async (user) => {
+    if (user && document.getElementById(_0x2b8c(37)).style.display !== _0x2b8c(15)) {
+        const docSnap = await getDoc(doc(db, _0x2b8c(23), user.uid));
+        if (docSnap.exists() && docSnap.data().role !== _0x2b8c(24)) {
+            currentAdmin = { uid: user.uid, ...docSnap.data() };
+            enterSystem();
+        }
+    }
+});
+
+function enterSystem() {
+    document.getElementById(_0x2b8c(37)).style.display = _0x2b8c(15);
+    document.getElementById(_0x2b8c(38)).style.display = _0x2b8c(39);
+    document.getElementById(_0x2b8c(40)).innerText = _0x2b8c(41) + currentAdmin.email;
+    document.getElementById(_0x2b8c(42)).innerText = _0x2b8c(43) + currentAdmin.role;
+    
+    if (currentAdmin.role === _0x2b8c(44)) {
+        document.getElementById(_0x2b8c(45)).style.display = _0x2b8c(16);
+        document.getElementById(_0x2b8c(46)).style.display = _0x2b8c(16);
+        document.getElementById(_0x2b8c(47)).style.display = _0x2b8c(16);
+        document.getElementById(_0x2b8c(48)).style.display = _0x2b8c(16);
+        document.getElementById(_0x2b8c(49)).style.display = _0x2b8c(16);
+    } else if (currentAdmin.role === _0x2b8c(50)) { 
+        document.getElementById(_0x2b8c(45)).style.display = _0x2b8c(16); 
+    } else if (currentAdmin.role === _0x2b8c(51)) { 
+        document.getElementById(_0x2b8c(46)).style.display = _0x2b8c(16); 
+    } else if (currentAdmin.role === _0x2b8c(52)) { 
+        document.getElementById(_0x2b8c(47)).style.display = _0x2b8c(16); 
+    } else if (currentAdmin.role === _0x2b8c(53)) { 
+        document.getElementById(_0x2b8c(48)).style.display = _0x2b8c(16); 
+    }
+
+    loadData();
+    loadAdmins();
+}
+
+window.logout = async function() { 
+    await signOut(auth); 
+    location.reload(); 
+};
+
+async function loadData() {
+    const querySnapshot = await getDocs(collection(db, _0x2b8c(54)));
+    allApps = [];
+    querySnapshot.forEach((doc) => { allApps.push({ id: doc.id, ...doc.data() }); });
+    renderAll();
+}
+
+async function loadAdmins() {
+    if (currentAdmin.role !== _0x2b8c(44)) return;
+    const querySnapshot = await getDocs(collection(db, _0x2b8c(23)));
+    let adminsHTML = _0x2b8c(12);
+    querySnapshot.forEach((doc) => {
+        let admin = doc.data();
+        adminsHTML += `<tr><td>${admin.name}</td><td>${admin.email}</td><td><span class="status ${admin.role === 'pending' ? 'pending' : 'accepted'}">${admin.role}</span></td>
+        <td>
+            <select id="role_${doc.id}" style="background:#000; color:#fff; padding:5px;">
+                <option value="pending" ${admin.role === 'pending' ? 'selected' : ''}>معلق</option>
+                <option value="hr" ${admin.role === 'hr' ? 'selected' : ''}>HR (مدينة)</option>
+                <option value="management" ${admin.role === 'management' ? 'selected' : ''}>مجلس إدارة</option>
+                <option value="health_affairs" ${admin.role === 'health_affairs' ? 'selected' : ''}>شؤون الصحة</option>
+                <option value="interior_affairs" ${admin.role === 'interior_affairs' ? 'selected' : ''}>شؤون الداخلية</option>
+                <option value="chairman" ${admin.role === 'chairman' ? 'selected' : ''}>رئيس مجلس الإدارة</option>
+            </select>
+            <button class="btn-action" onclick="window.updateAdminRole('${doc.id}')">حفظ</button>
+        </td></tr>`;
+    });
+    document.getElementById(_0x2b8c(55)).innerHTML = adminsHTML;
+}
+
+window.updateAdminRole = async function(uid) {
+    const newRole = document.getElementById(_0x2b8c(56) + uid).value;
+    await updateDoc(doc(db, _0x2b8c(23), uid), { role: newRole });
+    alert(_0x2b8c(57));
+    loadAdmins();
+};
+
+window.switchTab = function(tabId, element) {
+    document.querySelectorAll(_0x2b8c(58)).forEach(el => el.classList.remove(_0x2b8c(59)));
+    element.classList.add(_0x2b8c(59));
+    document.querySelectorAll(_0x2b8c(60)).forEach(sec => sec.classList.remove(_0x2b8c(61)));
+    document.getElementById(tabId).classList.add(_0x2b8c(61));
+    if (window.innerWidth <= 768) {
+        document.getElementById(_0x2b8c(62)).classList.remove(_0x2b8c(63));
+    }
+};
+
+function renderAll() {
+    const depts = [_0x2b8c(64), _0x2b8c(65), _0x2b8c(66), _0x2b8c(67)];
+    let counts = { pending: 0, accepted: 0, rejected: 0, total: allApps.length };
+
+    depts.forEach(dept => {
+        let pendingHTML = _0x2b8c(12), acceptedHTML = _0x2b8c(12), rejectedHTML = _0x2b8c(12);
+        allApps.filter(app => app.department === dept).forEach(app => {
+            counts[app.status]++;
+            let trContent = `<td>${app.applicant_name}</td><td>${app.player_id}</td>`;
+            if (dept === _0x2b8c(64)) trContent += `<td>${app.discord || "لا يوجد"}</td>`;
+            
+            if (app.status === _0x2b8c(24)) {
+                pendingHTML += `<tr class="search-row"> ${trContent} <td>${app.date}</td> <td><span class="status pending">معلق</span></td> <td><button class="btn-action" onclick="window.openReview('${app.id}')">مراجعة</button></td> </tr>`;
+            } else if (app.status === _0x2b8c(68)) {
+                acceptedHTML += `<tr class="search-row"> ${trContent} <td>${app.date}</td> <td style="color:var(--accent-glow);">${app.admin}</td> </tr>`;
+            } else if (app.status === _0x2b8c(69)) {
+                let rejectMsg = `<b>${app.reason}</b><br><span style="font-size:0.8rem; color:#ccc;">${app.custom_reason}</span>`;
+                rejectedHTML += `<tr class="search-row"> ${trContent} <td>${app.date}</td> <td><span class="status rejected" style="display:inline-block; padding:8px;">${rejectMsg}</span></td> <td style="color:var(--accent-glow);">${app.admin}</td> </tr>`;
+            }
+        });
+
+        document.getElementById(dept + _0x2b8c(70)).innerHTML = pendingHTML || _0x2b8c(71);
+        document.getElementById(dept + _0x2b8c(72)).innerHTML = acceptedHTML || _0x2b8c(73);
+        document.getElementById(dept + _0x2b8c(74)).innerHTML = rejectedHTML || _0x2b8c(71);
+    });
+
+    document.getElementById(_0x2b8c(75)).innerText = counts.total;
+    document.getElementById(_0x2b8c(76)).innerText = counts.pending;
+    document.getElementById(_0x2b8c(77)).innerText = counts.accepted;
+    document.getElementById(_0x2b8c(78)).innerText = counts.rejected;
+}
+
+window.filterTables = function(dept) {
+    const input = document.getElementById(_0x2b8c(79) + dept).value.toUpperCase();
+    const tab = document.getElementById(dept + _0x2b8c(80));
+    const rows = tab.querySelectorAll(_0x2b8c(81));
+    rows.forEach(row => { 
+        row.style.display = (row.innerText || row.textContent).toUpperCase().includes(input) ? _0x2b8c(12) : _0x2b8c(15); 
+    });
+};
+
+window.openReview = function(id) {
+    activeAppId = id;
+    const app = allApps.find(a => a.id === id);
+    let deptNames = { [_0x2b8c(64)]: _0x2b8c(82), [_0x2b8c(65)]: _0x2b8c(83), [_0x2b8c(66)]: _0x2b8c(84), [_0x2b8c(67)]: _0x2b8c(85) };
+    document.getElementById(_0x2b8c(86)).innerText = deptNames[app.department];
+    
+    let detailsHTML = `<div class="form-row"><span>الاسم:</span><div>${app.applicant_name}</div></div><div class="form-row"><span>الآيدي:</span><div>${app.player_id}</div></div>`;
+    if (app.details) {
+        if (app.department === _0x2b8c(64)) { 
+            detailsHTML += `<div class="form-row"><span>العمر:</span><div>${app.details.age}</div></div><div class="form-row"><span>الديسكورد:</span><div>${app.discord}</div></div><div class="form-row"><span>الخبرات:</span><div>${app.details.experience}</div></div><div class="form-row"><span>سبب الانضمام:</span><div>${app.details.join_reason}</div></div><div class="form-row"><span>أسئلة الإدارة:</span><div>${app.details.questions}</div></div>`; 
+        } else if (app.department === _0x2b8c(65)) { 
+            detailsHTML += `<div class="form-row"><span>العمر:</span><div>${app.details.age}</div></div><div class="form-row"><span>الخبرات الإدارية:</span><div>${app.details.admin_exp}</div></div><div class="form-row"><span>السيرفرات السابقة:</span><div>${app.details.previous_servers}</div></div><div class="form-row"><span>ساعات اللعب:</span><div>${app.details.playtime}</div></div><div class="form-row"><span>لماذا تريد الإدارة:</span><div>${app.details.join_reason}</div></div>`; 
+        } else if (app.department === _0x2b8c(66) || app.department === _0x2b8c(67)) { 
+            detailsHTML += `<div class="form-row"><span>العمر:</span><div>${app.details.age}</div></div><div class="form-row"><span>الخبرات:</span><div>${app.details.med_exp || app.details.sec_exp}</div></div><div class="form-row"><span>سبب الانضمام:</span><div>${app.details.join_reason}</div></div><div class="form-row"><span>الأسئلة:</span><div>${app.details.questions}</div></div>`; 
+        }
+    }
+
+    document.getElementById(_0x2b8c(87)).innerHTML = detailsHTML;
+    document.getElementById(_0x2b8c(88)).style.display = _0x2b8c(39);
+    document.getElementById(_0x2b8c(89)).style.display = _0x2b8c(15);
+    document.getElementById(_0x2b8c(90)).style.display = _0x2b8c(15);
+    document.getElementById(_0x2b8c(91)).value = _0x2b8c(12); 
+    document.getElementById(_0x2b8c(92)).style.display = _0x2b8c(39);
+};
+
+window.showAcceptSection = function() { 
+    document.getElementById(_0x2b8c(88)).style.display = _0x2b8c(15); 
+    document.getElementById(_0x2b8c(89)).style.display = _0x2b8c(16); 
+};
+
+window.showRejectSection = function() { 
+    document.getElementById(_0x2b8c(88)).style.display = _0x2b8c(15); 
+    document.getElementById(_0x2b8c(90)).style.display = _0x2b8c(16); 
+};
+
+window.executeReject = function() {
+    const rType = document.getElementById(_0x2b8c(93)).value;
+    const rReason = document.getElementById(_0x2b8c(91)).value;
+    if (!rReason) return alert(_0x2b8c(94));
+    window.submitDecision(_0x2b8c(69), rType, rReason);
+};
+
+window.submitDecision = async function(newStatus, reasonTitle, customReasonText) {
+    try {
+        const app = allApps.find(a => a.id === activeAppId);
+        if (!app) return alert(_0x2b8c(95));
+
+        await updateDoc(doc(db, _0x2b8c(54), activeAppId), {
+            status: newStatus,
+            reason: reasonTitle,
+            custom_reason: customReasonText,
+            admin: currentAdmin.name,
+            date: new Date().toLocaleString(_0x2b8c(96))
+        });
+
+        const appIndex = allApps.findIndex(a => a.id === activeAppId);
+        allApps[appIndex].status = newStatus;
+        allApps[appIndex].reason = reasonTitle;
+        allApps[appIndex].custom_reason = customReasonText;
+        allApps[appIndex].admin = currentAdmin.name;
+        
+        let logMsg = newStatus === _0x2b8c(68) ? _0x2b8c(97) + allApps[appIndex].applicant_name + _0x2b8c(98) : _0x2b8c(99) + allApps[appIndex].applicant_name + _0x2b8c(100) + customReasonText;
+        const dateStr = new Date().toLocaleString(_0x2b8c(96));
+        document.getElementById(_0x2b8c(101)).insertAdjacentHTML(_0x2b8c(102), `<tr><td>${currentAdmin.name}</td><td>${logMsg}</td><td>${dateStr}</td></tr>`);
+        
+        document.getElementById(_0x2b8c(92)).style.display = _0x2b8c(15);
+        renderAll(); 
+
+        const color = newStatus === _0x2b8c(68) ? 0x10b981 : 0xef4444;
+        const statusText = newStatus === _0x2b8c(68) ? _0x2b8c(103) : _0x2b8c(104);
+        let deptNames = { [_0x2b8c(64)]: _0x2b8c(82), [_0x2b8c(65)]: _0x2b8c(83), [_0x2b8c(66)]: _0x2b8c(84), [_0x2b8c(67)]: _0x2b8c(85) };
+        
+        const embed = {
+            title: `📢 تحديث حالة طلب التقديم - قسم ${deptNames[app.department] || app.department}`,
+            color: color,
+            fields: [
+                { name: _0x2b8c(105), value: app.applicant_name || _0x2b8c(106), inline: true },
+                { name: _0x2b8c(107), value: String(app.player_id) || _0x2b8c(106), inline: true },
+                { name: _0x2b8c(108), value: app.discord || _0x2b8c(109), inline: true },
+                { name: _0x2b8c(110), value: statusText, inline: true },
+                { name: _0x2b8c(111), value: currentAdmin.name, inline: true }
+            ],
+            timestamp: new Date().toISOString()
+        };
+
+        if (newStatus === _0x2b8c(69)) {
+            embed.fields.push(
+                { name: _0x2b8c(112), value: reasonTitle, inline: true },
+                { name: _0x2b8c(113), value: customReasonText || _0x2b8c(109), inline: false }
+            );
+        }
+
+        sendWebhook(embed);
+
+    } catch (e) { 
+        console.error(e); 
+        alert(_0x2b8c(114)); 
+    }
+};
+
+window.deleteApplication = async function() {
+    if (confirm(_0x2b8c(115))) {
+        try {
+            const app = allApps.find(a => a.id === activeAppId);
+            if (!app) return alert(_0x2b8c(95));
+
+            await deleteDoc(doc(db, _0x2b8c(54), activeAppId));
+            allApps = allApps.filter(a => a.id !== activeAppId);
+            
+            const dateStr = new Date().toLocaleString(_0x2b8c(96));
+            document.getElementById(_0x2b8c(101)).insertAdjacentHTML(_0x2b8c(102), `<tr><td>${currentAdmin.name}</td><td>قام بحذف طلب من قاعدة البيانات</td><td>${dateStr}</td></tr>`);
+            
+            document.getElementById(_0x2b8c(92)).style.display = _0x2b8c(15);
+            renderAll();
+            alert(_0x2b8c(116));
+
+            let deptNames = { [_0x2b8c(64)]: _0x2b8c(82), [_0x2b8c(65)]: _0x2b8c(83), [_0x2b8c(66)]: _0x2b8c(84), [_0x2b8c(67)]: _0x2b8c(85) };
+            const embed = {
+                title: `🗑️ حذف طلب تقديم نهائياً`,
+                color: 0x333333,
+                fields: [
+                    { name: _0x2b8c(117), value: app.applicant_name || _0x2b8c(106), inline: true },
+                    { name: _0x2b8c(107), value: String(app.player_id) || _0x2b8c(106), inline: true },
+                    { name: _0x2b8c(118), value: deptNames[app.department] || app.department, inline: true },
+                    { name: _0x2b8c(111), value: currentAdmin.name, inline: true }
+                ],
+                timestamp: new Date().toISOString()
+            };
+
+            sendWebhook(embed);
+
+        } catch (e) { 
+            console.error(e); 
+            alert(_0x2b8c(119)); 
+        }
+    }
+};
+
+    </script>
+
+    <!-- سكريبت حماية النظام ومكافحة التفتيش (Ctrl+Shift+I / F12 / Key traps) -->
+    <script>
+        document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'F12' || e.keyCode === 123) {
+                e.preventDefault();
+                return false;
+            }
+            if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) {
+                e.preventDefault();
+                return false;
+            }
+            if (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.keyCode === 85)) {
+                e.preventDefault();
+                return false;
+            }
+        });
+    </script>
+
+</body>
+</html>
