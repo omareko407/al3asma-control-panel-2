@@ -86,6 +86,7 @@
         <div class="nav-item" id="nav-city" style="display:none;" onclick="window.switchTab('cityTab', this)">🏙️ شؤون المدينة</div>
         <div class="nav-item" id="nav-mgmt" style="display:none;" onclick="window.switchTab('mgmtTab', this)">💼 شؤون الإدارة</div>
         <div class="nav-item" onclick="window.switchTab('logsTab', this)">📜 سجل العمليات</div>
+        <div class="nav-item" id="nav-schemas" style="display:none;" onclick="window.switchTab('schemasTab', this)">🔧 تخصيص النماذج</div>
         <div class="nav-item" id="nav-roles" style="display:none; border-top: 1px solid #222; margin-top: auto; color: var(--warning);" onclick="window.switchTab('rolesTab', this)">👑 إدارة الرتب</div>
     </div>
 
@@ -139,6 +140,46 @@
                 </tbody></table></div>
             </div>
 
+            <div id="schemasTab" class="content-section">
+                <h2 class="dept-title">🔧 تخصيص نماذج التقديم</h2>
+                
+                <div style="background: var(--panel-bg); padding: 20px; border-radius: 12px; border: 1px solid var(--border-color); margin-bottom: 25px;">
+                    <label style="color: var(--text-muted); font-weight: bold; display: block; margin-bottom: 10px;">اختر نموذج القسم لتعديله:</label>
+                    <select id="schemaDeptSelect" onchange="window.loadSchemaForDept()" style="background: #000; color: #fff; padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; width: 100%; box-sizing: border-box; font-size: 1.1rem;">
+                        <option value="city">🏙️ التقديم على المدينة</option>
+                        <option value="mgmt">💼 التقديم على الإدارة</option>
+                    </select>
+                </div>
+
+                <div style="background: var(--panel-bg); padding: 20px; border-radius: 12px; border: 1px solid var(--border-color); margin-bottom: 25px;">
+                    <h3 style="color: var(--accent-glow); margin-top: 0; border-bottom: 1px solid #222; padding-bottom: 10px;">📋 الأسئلة الحالية في النموذج</h3>
+                    <div id="schemaFieldsList" style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;">
+                        <!-- Fields list will load here dynamically -->
+                    </div>
+                    
+                    <h3 style="color: var(--warning); margin-top: 25px; border-bottom: 1px solid #222; padding-bottom: 10px;">➕ إضافة سؤال جديد للنموذج</h3>
+                    <div style="display: grid; grid-template-columns: 2fr 1fr auto; gap: 15px; align-items: flex-end;">
+                        <div>
+                            <label style="color: #ccc; font-size: 0.9rem; display:block; margin-bottom:5px;">نص السؤال (العنوان):</label>
+                            <input type="text" id="newFieldLabel" placeholder="مثال: القصة، سبب التقديم، إلخ..." style="background:#000; color:#fff; padding:10px; border:1px solid var(--border-color); border-radius:6px; width:100%; box-sizing:border-box;">
+                        </div>
+                        <div>
+                            <label style="color: #ccc; font-size: 0.9rem; display:block; margin-bottom:5px;">نوع الإجابة المطلوبة:</label>
+                            <select id="newFieldType" style="background:#000; color:#fff; padding:10px; border:1px solid var(--border-color); border-radius:6px; width:100%; box-sizing:border-box;">
+                                <option value="text">نص قصير (سطر واحد)</option>
+                                <option value="textarea">نص طويل (عدة أسطر)</option>
+                                <option value="number">رقم</option>
+                            </select>
+                        </div>
+                        <div>
+                            <button class="btn-action" style="background: var(--warning); color: #000; padding: 10px 20px; height: 40px;" onclick="window.addFieldToSchema()">إضافة الحقل</button>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn-action" style="background: var(--success); color: #fff; width: 100%; font-size: 1.2rem; padding: 15px;" onclick="window.saveSchemaToFirestore()">💾 حفظ تعديلات النموذج النهائي</button>
+            </div>
+
         </div>
     </div>
 
@@ -168,7 +209,7 @@
         </div>
     </div>
     <script type="module">
-const _0x3e1d = ["AIzaSyB9TBHZn3qzhb2eKH9rCTF4rspdLUvRftM","al3asma.firebaseapp.com","al3asma","al3asma.firebasestorage.app","108484620974","1:108484620974:web:04e448d20529c14e89733f","G-W4G5YQ5HFE","https://discord.com/api/webhooks/1519446529289617543/lzSDVGifCJT_bpHkzhNoY7LqzqLOJJRQk3SLyXnHVbgh_rDAgGPTzO4bxp5YC0PRxKq6","POST","Content-Type","application/json","Error Webhook:","","loginForm","registerForm","none","block","regEmail","regName","regPassword","btnRegister","أكمل البيانات!","جاري الإنشاء...","admins","pending","تم إنشاء حسابك الآمن. يرجى انتظار تفعيل رئيس مجلس الإدارة.","error: ","إرسال الطلب","loginEmail","loginPassword","btnLogin","أدخل البريد وكلمة المرور.","جاري التحقق...","حسابك قيد المراجعة من رئيس مجلس الإدارة ولم يتم تفعيله بعد.","دخول للنظام","لا توجد بيانات صلاحيات لهذا الحساب.","loginError","authScreen","mainWrapper","flex","myEmailDisplay","الحساب: ","myRoleDisplay","رتبة: ","chairman","nav-city","nav-mgmt","nav-roles","hr","management","applications","admin-users-body","role_","تم تحديث الرتبة بنجاح!",".nav-item","active",".content-section","active-section","sidebar","active-mobile","city","mgmt","accepted","accepted_temp","rejected","-pending","-accepted","-rejected","<tr><td colspan='6'>لا يوجد</td></tr>","<tr><td colspan='5'>لا يوجد</td></tr>","stat-total","stat-pending","stat-accepted","stat-rejected","search-","Tab",".search-row","المدينة","الإدارة","modalDeptName","modalContentData","acceptSection","primaryActions","rejectSection","rejectReasonText","reviewModal","rejectType","اكتب السبب!","الطلب غير موجود!","ar-EG","قبل (",")","رفض (",") بسبب: ","logs-body","afterbegin","✅ قبول نهائي","⏳ قبول مبدئي (رول)","❌ رفض الطلب","👤 اسم مقدم الطلب","غير معروف","🆔 آيدي اللاعب (ID)","🎮 حساب الديسكورد","لا يوجد","📈 الحالة الجديدة","👮 الأدمن المسؤول","⚠️ نوع الرفض","📝 السبب بالتفصيل","خطأ في تحديث البيانات","هل أنت متأكد من حذف هذا الطلب نهائياً من قاعدة البيانات؟ لا يمكن التراجع عن هذا الإجراء.","تم حذف الطلب نهائياً.","👤 الاسم","🏢 القسم","خطأ في حذف الطلب."];
+const _0x3e1d = ["AIzaSyB9TBHZn3qzhb2eKH9rCTF4rspdLUvRftM","al3asma.firebaseapp.com","al3asma","al3asma.firebasestorage.app","108484620974","1:108484620974:web:04e448d20529c14e89733f","G-W4G5YQ5HFE","https://discord.com/api/webhooks/1519446529289617543/lzSDVGifCJT_bpHkzhNoY7LqzqLOJJRQk3SLyXnHVbgh_rDAgGPTzO4bxp5YC0PRxKq6","POST","Content-Type","application/json","Error Webhook:","age","العمر","number","exp","الخبرات السابقة","textarea","story","القصة","questions","أسئلة الإدارة (هل قرأت القوانين؟)","الخبرات الإدارية","servers","السيرفرات السابقة","text","playtime","ساعات اللعب","reason","لماذا تريد الإدارة","form_schemas","Admin side schemas loaded:","Failed to load schemas from Firestore:","","loginForm","registerForm","none","block","regEmail","regName","regPassword","btnRegister","أكمل البيانات!","جاري الإنشاء...","admins","pending","تم إنشاء حسابك الآمن. يرجى انتظار تفعيل رئيس مجلس الإدارة.","error: ","إرسال الطلب","loginEmail","loginPassword","btnLogin","أدخل البريد وكلمة المرور.","جاري التحقق...","حسابك قيد المراجعة من رئيس مجلس الإدارة ولم يتم تفعيله بعد.","دخول للنظام","لا توجد بيانات صلاحيات لهذا الحساب.","loginError","authScreen","mainWrapper","flex","myEmailDisplay","الحساب: ","myRoleDisplay","رتبة: ","chairman","nav-city","nav-mgmt","nav-schemas","nav-roles","hr","management","applications","admin-users-body","role_","تم تحديث الرتبة بنجاح!",".nav-item","active",".content-section","active-section","sidebar","active-mobile","city","mgmt","accepted","accepted_temp","rejected","-pending","-accepted","-rejected","<tr><td colspan='6'>لا يوجد</td></tr>","<tr><td colspan='5'>لا يوجد</td></tr>","stat-total","stat-pending","stat-accepted","stat-rejected","search-","Tab",".search-row","المدينة","الإدارة","modalDeptName","modalContentData","acceptSection","primaryActions","rejectSection","rejectReasonText","reviewModal","rejectType","اكتب السبب!","الطلب غير موجود!","ar-EG","قبل (",")","رفض (",") بسبب: ","logs-body","afterbegin","✅ قبول نهائي","⏳ قبول مبدئي (رول)","❌ رفض الطلب","👤 اسم مقدم الطلب","غير معروف","🆔 آيدي اللاعب (ID)","🎮 حساب الديسكورد","لا يوجد","📈 الحالة الجديدة","👮 الأدمن المسؤول","⚠️ نوع الرفض","📝 السبب بالتفصيل","خطأ في تحديث البيانات","هل أنت متأكد من حذف هذا الطلب نهائياً من قاعدة البيانات؟ لا يمكن التراجع عن هذا الإجراء.","تم حذف الطلب نهائياً.","👤 الاسم","🏢 القسم","خطأ في حذف الطلب.","schemaDeptSelect","schemaFieldsList","نص قصير","نص طويل","رقم","newFieldLabel","newFieldType","اكتب نص السؤال أولاً!","field_","هل أنت متأكد من حذف هذا السؤال من النموذج؟","💾 تم حفظ تعديلات النموذج بنجاح! ستظهر للمتقدمين فور قيامهم بتقديم طلب جديد.","Error saving schema:","خطأ في حفظ تعديلات النموذج في قاعدة البيانات."];
 function _0x2b8c(idx) { return _0x3e1d[idx]; }
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getFirestore, collection, getDocs, doc, setDoc, updateDoc, getDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
@@ -203,74 +244,109 @@ async function sendWebhook(embed) {
     }
 }
 
-let currentAdmin = { uid: _0x2b8c(12), name: _0x2b8c(12), role: _0x2b8c(12), email: _0x2b8c(12) };
+// Schemas Cache
+const DEFAULT_SCHEMAS = {
+    city: [
+        { id: _0x2b8c(12), label: _0x2b8c(13), type: _0x2b8c(14) },
+        { id: _0x2b8c(15), label: _0x2b8c(16), type: _0x2b8c(17) },
+        { id: _0x2b8c(18), label: _0x2b8c(19), type: _0x2b8c(17) },
+        { id: _0x2b8c(20), label: _0x2b8c(21), type: _0x2b8c(17) }
+    ],
+    mgmt: [
+        { id: _0x2b8c(12), label: _0x2b8c(13), type: _0x2b8c(14) },
+        { id: _0x2b8c(15), label: _0x2b8c(22), type: _0x2b8c(17) },
+        { id: _0x2b8c(23), label: _0x2b8c(24), type: _0x2b8c(25) },
+        { id: _0x2b8c(26), label: _0x2b8c(27), type: _0x2b8c(14) },
+        { id: _0x2b8c(28), label: _0x2b8c(29), type: _0x2b8c(17) }
+    ]
+};
+
+let activeSchemas = { ...DEFAULT_SCHEMAS };
+let schemaEditedFields = [];
+
+async function loadSchemasFromDB() {
+    try {
+        const querySnapshot = await getDocs(collection(db, _0x2b8c(30)));
+        querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            if (data && data.fields) {
+                activeSchemas[doc.id] = data.fields;
+            }
+        });
+        console.log(_0x2b8c(31), activeSchemas);
+    } catch (e) {
+        console.error(_0x2b8c(32), e);
+    }
+}
+
+let currentAdmin = { uid: _0x2b8c(33), name: _0x2b8c(33), role: _0x2b8c(33), email: _0x2b8c(33) };
 let activeAppId = null;
 let allApps = [];
 
 window.toggleAuthMode = function() {
-    const login = document.getElementById(_0x2b8c(13));
-    const reg = document.getElementById(_0x2b8c(14));
-    if (login.style.display === _0x2b8c(15)) {
-        login.style.display = _0x2b8c(16);
-        reg.style.display = _0x2b8c(15);
+    const login = document.getElementById(_0x2b8c(34));
+    const reg = document.getElementById(_0x2b8c(35));
+    if (login.style.display === _0x2b8c(36)) {
+        login.style.display = _0x2b8c(37);
+        reg.style.display = _0x2b8c(36);
     } else {
-        login.style.display = _0x2b8c(15);
-        reg.style.display = _0x2b8c(16);
+        login.style.display = _0x2b8c(36);
+        reg.style.display = _0x2b8c(37);
     }
 };
 
 window.handleRegister = async function() {
-    const email = document.getElementById(_0x2b8c(17)).value;
-    const name = document.getElementById(_0x2b8c(18)).value;
-    const pass = document.getElementById(_0x2b8c(19)).value;
-    const btn = document.getElementById(_0x2b8c(20));
+    const email = document.getElementById(_0x2b8c(38)).value;
+    const name = document.getElementById(_0x2b8c(39)).value;
+    const pass = document.getElementById(_0x2b8c(40)).value;
+    const btn = document.getElementById(_0x2b8c(41));
 
-    if (!email || !name || !pass) return alert(_0x2b8c(21));
-    btn.innerText = _0x2b8c(22);
+    if (!email || !name || !pass) return alert(_0x2b8c(42));
+    btn.innerText = _0x2b8c(43);
     btn.disabled = true;
     
     try {
         const userCredential = await createUserWithEmailAndPassword(auth, email, pass);
         const user = userCredential.user;
         
-        await setDoc(doc(db, _0x2b8c(23), user.uid), { 
+        await setDoc(doc(db, _0x2b8c(44), user.uid), { 
             name: name, 
             email: email, 
-            role: _0x2b8c(24)
+            role: _0x2b8c(45)
         });
         
         await signOut(auth);
-        alert(_0x2b8c(25));
+        alert(_0x2b8c(46));
         window.toggleAuthMode();
     } catch (error) { 
         console.error(error); 
-        alert(_0x2b8c(26) + error.message); 
+        alert(_0x2b8c(47) + error.message); 
     } finally {
-        btn.innerText = _0x2b8c(27);
+        btn.innerText = _0x2b8c(48);
         btn.disabled = false;
     }
 };
 
 window.handleLogin = async function() {
-    const email = document.getElementById(_0x2b8c(28)).value;
-    const pass = document.getElementById(_0x2b8c(29)).value;
-    const btn = document.getElementById(_0x2b8c(30));
+    const email = document.getElementById(_0x2b8c(49)).value;
+    const pass = document.getElementById(_0x2b8c(50)).value;
+    const btn = document.getElementById(_0x2b8c(51));
 
-    if (!email || !pass) return alert(_0x2b8c(31));
-    btn.innerText = _0x2b8c(32);
+    if (!email || !pass) return alert(_0x2b8c(52));
+    btn.innerText = _0x2b8c(53);
     btn.disabled = true;
 
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email, pass);
         const user = userCredential.user;
 
-        const docSnap = await getDoc(doc(db, _0x2b8c(23), user.uid));
+        const docSnap = await getDoc(doc(db, _0x2b8c(44), user.uid));
         if (docSnap.exists()) {
             const adminData = docSnap.data();
-            if (adminData.role === _0x2b8c(24)) {
+            if (adminData.role === _0x2b8c(45)) {
                 await signOut(auth);
-                alert(_0x2b8c(33));
-                btn.innerText = _0x2b8c(34);
+                alert(_0x2b8c(54));
+                btn.innerText = _0x2b8c(55);
                 btn.disabled = false;
                 return;
             }
@@ -278,21 +354,21 @@ window.handleLogin = async function() {
             enterSystem();
         } else {
             await signOut(auth);
-            alert(_0x2b8c(35));
+            alert(_0x2b8c(56));
         }
     } catch (e) { 
         console.error(e); 
-        document.getElementById(_0x2b8c(36)).style.display = _0x2b8c(16); 
+        document.getElementById(_0x2b8c(57)).style.display = _0x2b8c(37); 
     } finally {
-        btn.innerText = _0x2b8c(34);
+        btn.innerText = _0x2b8c(55);
         btn.disabled = false;
     }
 };
 
 onAuthStateChanged(auth, async (user) => {
-    if (user && document.getElementById(_0x2b8c(37)).style.display !== _0x2b8c(15)) {
-        const docSnap = await getDoc(doc(db, _0x2b8c(23), user.uid));
-        if (docSnap.exists() && docSnap.data().role !== _0x2b8c(24)) {
+    if (user && document.getElementById(_0x2b8c(58)).style.display !== _0x2b8c(36)) {
+        const docSnap = await getDoc(doc(db, _0x2b8c(44), user.uid));
+        if (docSnap.exists() && docSnap.data().role !== _0x2b8c(45)) {
             currentAdmin = { uid: user.uid, ...docSnap.data() };
             enterSystem();
         }
@@ -300,21 +376,26 @@ onAuthStateChanged(auth, async (user) => {
 });
 
 function enterSystem() {
-    document.getElementById(_0x2b8c(37)).style.display = _0x2b8c(15);
-    document.getElementById(_0x2b8c(38)).style.display = _0x2b8c(39);
-    document.getElementById(_0x2b8c(40)).innerText = _0x2b8c(41) + currentAdmin.email;
-    document.getElementById(_0x2b8c(42)).innerText = _0x2b8c(43) + currentAdmin.role;
+    document.getElementById(_0x2b8c(58)).style.display = _0x2b8c(36);
+    document.getElementById(_0x2b8c(59)).style.display = _0x2b8c(60);
+    document.getElementById(_0x2b8c(61)).innerText = _0x2b8c(62) + currentAdmin.email;
+    document.getElementById(_0x2b8c(63)).innerText = _0x2b8c(64) + currentAdmin.role;
     
-    if (currentAdmin.role === _0x2b8c(44)) {
-        document.getElementById(_0x2b8c(45)).style.display = _0x2b8c(16);
-        document.getElementById(_0x2b8c(46)).style.display = _0x2b8c(16);
-        document.getElementById(_0x2b8c(47)).style.display = _0x2b8c(16);
-    } else if (currentAdmin.role === _0x2b8c(48)) { 
-        document.getElementById(_0x2b8c(45)).style.display = _0x2b8c(16); 
-    } else if (currentAdmin.role === _0x2b8c(49)) { 
-        document.getElementById(_0x2b8c(46)).style.display = _0x2b8c(16); 
+    if (currentAdmin.role === _0x2b8c(65)) {
+        document.getElementById(_0x2b8c(66)).style.display = _0x2b8c(37);
+        document.getElementById(_0x2b8c(67)).style.display = _0x2b8c(37);
+        document.getElementById(_0x2b8c(68)).style.display = _0x2b8c(37);
+        document.getElementById(_0x2b8c(69)).style.display = _0x2b8c(37);
+    } else if (currentAdmin.role === _0x2b8c(70)) { 
+        document.getElementById(_0x2b8c(66)).style.display = _0x2b8c(37); 
+    } else if (currentAdmin.role === _0x2b8c(71)) { 
+        document.getElementById(_0x2b8c(67)).style.display = _0x2b8c(37); 
     }
 
+    loadSchemasFromDB().then(() => {
+        window.loadSchemaForDept();
+    });
+    
     loadData();
     loadAdmins();
 }
@@ -325,16 +406,16 @@ window.logout = async function() {
 };
 
 async function loadData() {
-    const querySnapshot = await getDocs(collection(db, _0x2b8c(50)));
+    const querySnapshot = await getDocs(collection(db, _0x2b8c(72)));
     allApps = [];
     querySnapshot.forEach((doc) => { allApps.push({ id: doc.id, ...doc.data() }); });
     renderAll();
 }
 
 async function loadAdmins() {
-    if (currentAdmin.role !== _0x2b8c(44)) return;
-    const querySnapshot = await getDocs(collection(db, _0x2b8c(23)));
-    let adminsHTML = _0x2b8c(12);
+    if (currentAdmin.role !== _0x2b8c(65)) return;
+    const querySnapshot = await getDocs(collection(db, _0x2b8c(44)));
+    let adminsHTML = _0x2b8c(33);
     querySnapshot.forEach((doc) => {
         let admin = doc.data();
         adminsHTML += `<tr><td>${admin.name}</td><td>${admin.email}</td><td><span class="status ${admin.role === 'pending' ? 'pending' : 'accepted'}">${admin.role}</span></td>
@@ -348,137 +429,134 @@ async function loadAdmins() {
             <button class="btn-action" onclick="window.updateAdminRole('${doc.id}')">حفظ</button>
         </td></tr>`;
     });
-    document.getElementById(_0x2b8c(51)).innerHTML = adminsHTML;
+    document.getElementById(_0x2b8c(73)).innerHTML = adminsHTML;
 }
 
 window.updateAdminRole = async function(uid) {
-    const newRole = document.getElementById(_0x2b8c(52) + uid).value;
-    await updateDoc(doc(db, _0x2b8c(23), uid), { role: newRole });
-    alert(_0x2b8c(53));
+    const newRole = document.getElementById(_0x2b8c(74) + uid).value;
+    await updateDoc(doc(db, _0x2b8c(44), uid), { role: newRole });
+    alert(_0x2b8c(75));
     loadAdmins();
 };
 
 window.switchTab = function(tabId, element) {
-    document.querySelectorAll(_0x2b8c(54)).forEach(el => el.classList.remove(_0x2b8c(55)));
-    element.classList.add(_0x2b8c(55));
-    document.querySelectorAll(_0x2b8c(56)).forEach(sec => sec.classList.remove(_0x2b8c(57)));
-    document.getElementById(tabId).classList.add(_0x2b8c(57));
+    document.querySelectorAll(_0x2b8c(76)).forEach(el => el.classList.remove(_0x2b8c(77)));
+    element.classList.add(_0x2b8c(77));
+    document.querySelectorAll(_0x2b8c(78)).forEach(sec => sec.classList.remove(_0x2b8c(79)));
+    document.getElementById(tabId).classList.add(_0x2b8c(79));
     if (window.innerWidth <= 768) {
-        document.getElementById(_0x2b8c(58)).classList.remove(_0x2b8c(59));
+        document.getElementById(_0x2b8c(80)).classList.remove(_0x2b8c(81));
     }
 };
 
 function renderAll() {
-    const depts = [_0x2b8c(60), _0x2b8c(61)];
+    const depts = [_0x2b8c(82), _0x2b8c(83)];
     let counts = { pending: 0, accepted: 0, rejected: 0, total: allApps.length };
 
     depts.forEach(dept => {
-        let pendingHTML = _0x2b8c(12), acceptedHTML = _0x2b8c(12), rejectedHTML = _0x2b8c(12);
+        let pendingHTML = _0x2b8c(33), acceptedHTML = _0x2b8c(33), rejectedHTML = _0x2b8c(33);
         allApps.filter(app => app.department === dept).forEach(app => {
             counts[app.status]++;
             let trContent = `<td>${app.applicant_name}</td><td>${app.player_id}</td>`;
-            trContent += `<td>\thapp.discord_username || "لا يوجد"}</td>`;
+            trContent += `<td>${app.discord_username || "لا يوجد"}</td>`;
             
-            if (app.status === _0x2b8c(24)) {
+            if (app.status === _0x2b8c(45)) {
                 pendingHTML += `<tr class="search-row"> ${trContent} <td>${app.date}</td> <td><span class="status pending">معلق</span></td> <td><button class="btn-action" onclick="window.openReview('${app.id}')">مراجعة</button></td> </tr>`;
-            } else if (app.status === _0x2b8c(62) || app.status === _0x2b8c(63)) {
+            } else if (app.status === _0x2b8c(84) || app.status === _0x2b8c(85)) {
                 acceptedHTML += `<tr class="search-row"> ${trContent} <td>${app.date}</td> <td style="color:var(--accent-glow);">${app.admin} (${app.status === 'accepted_temp' ? 'مقبول مبدئياً' : 'قبول نهائي'})</td> </tr>`;
-            } else if (app.status === _0x2b8c(64)) {
+            } else if (app.status === _0x2b8c(86)) {
                 let rejectMsg = `<b>${app.reason}</b><br><span style="font-size:0.8rem; color:#ccc;">${app.custom_reason}</span>`;
                 rejectedHTML += `<tr class="search-row"> ${trContent} <td>${app.date}</td> <td><span class="status rejected" style="display:inline-block; padding:8px;">${rejectMsg}</span></td> <td style="color:var(--accent-glow);">${app.admin}</td> </tr>`;
             }
         });
 
-        const pendingContainer = document.getElementById(dept + _0x2b8c(65));
-        const acceptedContainer = document.getElementById(dept + _0x2b8c(66));
-        const rejectedContainer = document.getElementById(dept + _0x2b8c(67));
+        const pendingContainer = document.getElementById(dept + _0x2b8c(87));
+        const acceptedContainer = document.getElementById(dept + _0x2b8c(88));
+        const rejectedContainer = document.getElementById(dept + _0x2b8c(89));
         
-        if (pendingContainer) pendingContainer.innerHTML = pendingHTML || _0x2b8c(68);
-        if (acceptedContainer) acceptedContainer.innerHTML = acceptedHTML || _0x2b8c(69);
-        if (rejectedContainer) rejectedContainer.innerHTML = rejectedHTML || _0x2b8c(68);
+        if (pendingContainer) pendingContainer.innerHTML = pendingHTML || _0x2b8c(90);
+        if (acceptedContainer) acceptedContainer.innerHTML = acceptedHTML || _0x2b8c(91);
+        if (rejectedContainer) rejectedContainer.innerHTML = rejectedHTML || _0x2b8c(90);
     });
 
-    document.getElementById(_0x2b8c(70)).innerText = counts.total;
-    document.getElementById(_0x2b8c(71)).innerText = counts.pending;
-    document.getElementById(_0x2b8c(72)).innerText = counts.accepted;
-    document.getElementById(_0x2b8c(73)).innerText = counts.rejected;
+    document.getElementById(_0x2b8c(92)).innerText = counts.total;
+    document.getElementById(_0x2b8c(93)).innerText = counts.pending;
+    document.getElementById(_0x2b8c(94)).innerText = counts.accepted;
+    document.getElementById(_0x2b8c(95)).innerText = counts.rejected;
 }
 
 window.filterTables = function(dept) {
-    const input = document.getElementById(_0x2b8c(74) + dept).value.toUpperCase();
-    const tab = document.getElementById(dept + _0x2b8c(75));
+    const input = document.getElementById(_0x2b8c(96) + dept).value.toUpperCase();
+    const tab = document.getElementById(dept + _0x2b8c(97));
     if (!tab) return;
-    const rows = tab.querySelectorAll(_0x2b8c(76));
+    const rows = tab.querySelectorAll(_0x2b8c(98));
     rows.forEach(row => { 
-        row.style.display = (row.innerText || row.textContent).toUpperCase().includes(input) ? _0x2b8c(12) : _0x2b8c(15); 
+        row.style.display = (row.innerText || row.textContent).toUpperCase().includes(input) ? _0x2b8c(33) : _0x2b8c(36); 
     });
 };
 
 window.openReview = function(id) {
     activeAppId = id;
     const app = allApps.find(a => a.id === id);
-    let deptNames = { [_0x2b8c(60)]: _0x2b8c(77), [_0x2b8c(61)]: _0x2b8c(78) };
-    document.getElementById(_0x2b8c(79)).innerText = deptNames[app.department] || app.department;
+    let deptNames = { [_0x2b8c(82)]: _0x2b8c(99), [_0x2b8c(83)]: _0x2b8c(100) };
+    document.getElementById(_0x2b8c(101)).innerText = deptNames[app.department] || app.department;
     
     let detailsHTML = `<div class="form-row"><span>الاسم:</span><div>${app.applicant_name}</div></div><div class="form-row"><span>الآيدي:</span><div>${app.player_id}</div></div><div class="form-row"><span>ديسكورد موثق:</span><div>${app.discord_username || 'غير متوفر'} (ID: ${app.discord_id || 'غير متوفر'})</div></div>`;
     if (app.details) {
-        if (app.department === _0x2b8c(60)) { 
-            detailsHTML += `<div class="form-row"><span>العمر:</span><div>${app.details.age}</div></div><div class="form-row"><span>الخبرات:</span><div>${app.details.experience}</div></div><div class="form-row"><span>سبب الانضمام:</span><div>${app.details.join_reason}</div></div><div class="form-row"><span>أسئلة الإدارة:</span><div>${app.details.questions}</div></div>`; 
-        } else if (app.department === _0x2b8c(61)) { 
-            detailsHTML += `<div class="form-row"><span>العمر:</span><div>${app.details.age}</div></div><div class="form-row"><span>الخبرات الإدارية:</span><div>${app.details.admin_exp}</div></div><div class="form-row"><span>السيرفرات السابقة:</span><div>${app.details.previous_servers}</div></div><div class="form-row"><span>ساعات اللعب:</span><div>${app.details.playtime}</div></div><div class="form-row"><span>لماذا تريد الإدارة:</span><div>${app.details.join_reason}</div></div>`; 
+        for (const [label, value] of Object.entries(app.details)) {
+            detailsHTML += `<div class="form-row"><span>${label}:</span><div>${value}</div></div>`;
         }
     }
 
-    document.getElementById(_0x2b8c(80)).innerHTML = detailsHTML;
+    document.getElementById(_0x2b8c(102)).innerHTML = detailsHTML;
     
-    // Set dynamic acceptance buttons based on department
-    if (app.department === _0x2b8c(60)) {
-        document.getElementById(_0x2b8c(81)).innerHTML = `
+    if (app.department === _0x2b8c(82)) {
+        document.getElementById(_0x2b8c(103)).innerHTML = `
             <button class="btn-action" style="background: var(--warning); width: 100%; font-size: 1.1rem; margin-bottom: 10px;" onclick="window.submitDecision('accepted_temp', 'مقبول مبدئياً', '')">مقبول مبدئياً (رول)</button>
             <button class="btn-action" style="background: var(--success); width: 100%; font-size: 1.1rem;" onclick="window.submitDecision('accepted', 'وايت ليست', '')">وايت ليست (قبول نهائي)</button>
         `;
     } else {
-        document.getElementById(_0x2b8c(81)).innerHTML = `
+        document.getElementById(_0x2b8c(103)).innerHTML = `
             <button class="btn-action" style="background: var(--warning); width: 100%; font-size: 1.1rem; margin-bottom: 10px;" onclick="window.submitDecision('accepted_temp', 'مقبول مبدئياً للإدارة', '')">مقبول مبدئياً للإدارة (رول)</button>
             <button class="btn-action" style="background: var(--success); width: 100%; font-size: 1.1rem;" onclick="window.submitDecision('accepted', 'قبول نهائي', '')">قبول نهائي للإدارة</button>
         `;
     }
 
-    document.getElementById(_0x2b8c(82)).style.display = _0x2b8c(39);
-    document.getElementById(_0x2b8c(81)).style.display = _0x2b8c(15);
-    document.getElementById(_0x2b8c(83)).style.display = _0x2b8c(15);
-    document.getElementById(_0x2b8c(84)).value = _0x2b8c(12); 
-    document.getElementById(_0x2b8c(85)).style.display = _0x2b8c(39);
+    document.getElementById(_0x2b8c(104)).style.display = _0x2b8c(60);
+    document.getElementById(_0x2b8c(103)).style.display = _0x2b8c(36);
+    document.getElementById(_0x2b8c(105)).style.display = _0x2b8c(36);
+    document.getElementById(_0x2b8c(106)).value = _0x2b8c(33); 
+    document.getElementById(_0x2b8c(107)).style.display = _0x2b8c(60);
 };
 
 window.showAcceptSection = function() { 
-    document.getElementById(_0x2b8c(82)).style.display = _0x2b8c(15); 
-    document.getElementById(_0x2b8c(81)).style.display = _0x2b8c(16); 
+    document.getElementById(_0x2b8c(104)).style.display = _0x2b8c(36); 
+    document.getElementById(_0x2b8c(103)).style.display = _0x2b8c(37); 
 };
 
 window.showRejectSection = function() { 
-    document.getElementById(_0x2b8c(82)).style.display = _0x2b8c(15); 
-    document.getElementById(_0x2b8c(83)).style.display = _0x2b8c(16); 
+    document.getElementById(_0x2b8c(104)).style.display = _0x2b8c(36); 
+    document.getElementById(_0x2b8c(105)).style.display = _0x2b8c(37); 
 };
 
 window.executeReject = function() {
-    const rType = document.getElementById(_0x2b8c(86)).value;
-    const rReason = document.getElementById(_0x2b8c(84)).value;
-    if (!rReason) return alert(_0x2b8c(87));
-    window.submitDecision(_0x2b8c(64), rType, rReason);
+    const rType = document.getElementById(_0x2b8c(108)).value;
+    const rReason = document.getElementById(_0x2b8c(106)).value;
+    if (!rReason) return alert(_0x2b8c(109));
+    window.submitDecision(_0x2b8c(86), rType, rReason);
 };
 
 window.submitDecision = async function(newStatus, reasonTitle, customReasonText) {
     try {
         const app = allApps.find(a => a.id === activeAppId);
-        if (!app) return alert(_0x2b8c(88));
+        if (!app) return alert(_0x2b8c(110));
 
-        await updateDoc(doc(db, _0x2b8c(50), activeAppId), {
+        await updateDoc(doc(db, _0x2b8c(72), activeAppId), {
             status: newStatus,
             reason: reasonTitle,
             custom_reason: customReasonText,
             admin: currentAdmin.name,
-            date: new Date().toLocaleString(_0x2b8c(89))
+            date: new Date().toLocaleString(_0x2b8c(111))
         });
 
         const appIndex = allApps.findIndex(a => a.id === activeAppId);
@@ -487,34 +565,34 @@ window.submitDecision = async function(newStatus, reasonTitle, customReasonText)
         allApps[appIndex].custom_reason = customReasonText;
         allApps[appIndex].admin = currentAdmin.name;
         
-        let logMsg = newStatus.startsWith(_0x2b8c(62)) ? _0x2b8c(90) + allApps[appIndex].applicant_name + _0x2b8c(91) : _0x2b8c(92) + allApps[appIndex].applicant_name + _0x2b8c(93) + customReasonText;
-        const dateStr = new Date().toLocaleString(_0x2b8c(89));
-        document.getElementById(_0x2b8c(94)).insertAdjacentHTML(_0x2b8c(95), `<tr><td>${currentAdmin.name}</td><td>${logMsg}</td><td>${dateStr}</td></tr>`);
+        let logMsg = newStatus.startsWith(_0x2b8c(84)) ? _0x2b8c(112) + allApps[appIndex].applicant_name + _0x2b8c(113) : _0x2b8c(114) + allApps[appIndex].applicant_name + _0x2b8c(115) + customReasonText;
+        const dateStr = new Date().toLocaleString(_0x2b8c(111));
+        document.getElementById(_0x2b8c(116)).insertAdjacentHTML(_0x2b8c(117), `<tr><td>${currentAdmin.name}</td><td>${logMsg}</td><td>${dateStr}</td></tr>`);
         
-        document.getElementById(_0x2b8c(85)).style.display = _0x2b8c(15);
+        document.getElementById(_0x2b8c(107)).style.display = _0x2b8c(36);
         renderAll(); 
 
-        const color = newStatus === _0x2b8c(62) ? 0x10b981 : (newStatus === _0x2b8c(63) ? 0xf59e0b : 0xef4444);
-        const statusText = newStatus === _0x2b8c(62) ? _0x2b8c(96) : (newStatus === _0x2b8c(63) ? _0x2b8c(97) : _0x2b8c(98));
-        let deptNames = { [_0x2b8c(60)]: _0x2b8c(77), [_0x2b8c(61)]: _0x2b8c(78) };
+        const color = newStatus === _0x2b8c(84) ? 0x10b981 : (newStatus === _0x2b8c(85) ? 0xf59e0b : 0xef4444);
+        const statusText = newStatus === _0x2b8c(84) ? _0x2b8c(118) : (newStatus === _0x2b8c(85) ? _0x2b8c(119) : _0x2b8c(120));
+        let deptNames = { [_0x2b8c(82)]: _0x2b8c(99), [_0x2b8c(83)]: _0x2b8c(100) };
         
         const embed = {
             title: `📢 تحديث حالة طلب التقديم - قسم ${deptNames[app.department] || app.department}`,
             color: color,
             fields: [
-                { name: _0x2b8c(99), value: app.applicant_name || _0x2b8c(100), inline: true },
-                { name: _0x2b8c(101), value: String(app.player_id) || _0x2b8c(100), inline: true },
-                { name: _0x2b8c(102), value: app.discord_username || _0x2b8c(103), inline: true },
-                { name: _0x2b8c(104), value: statusText, inline: true },
-                { name: _0x2b8c(105), value: currentAdmin.name, inline: true }
+                { name: _0x2b8c(121), value: app.applicant_name || _0x2b8c(122), inline: true },
+                { name: _0x2b8c(123), value: String(app.player_id) || _0x2b8c(122), inline: true },
+                { name: _0x2b8c(124), value: app.discord_username || _0x2b8c(125), inline: true },
+                { name: _0x2b8c(126), value: statusText, inline: true },
+                { name: _0x2b8c(127), value: currentAdmin.name, inline: true }
             ],
             timestamp: new Date().toISOString()
         };
 
-        if (newStatus === _0x2b8c(64)) {
+        if (newStatus === _0x2b8c(86)) {
             embed.fields.push(
-                { name: _0x2b8c(106), value: reasonTitle, inline: true },
-                { name: _0x2b8c(107), value: customReasonText || _0x2b8c(103), inline: false }
+                { name: _0x2b8c(128), value: reasonTitle, inline: true },
+                { name: _0x2b8c(129), value: customReasonText || _0x2b8c(125), inline: false }
             );
         }
 
@@ -522,35 +600,35 @@ window.submitDecision = async function(newStatus, reasonTitle, customReasonText)
 
     } catch (e) { 
         console.error(e); 
-        alert(_0x2b8c(108)); 
+        alert(_0x2b8c(130)); 
     }
 };
 
 window.deleteApplication = async function() {
-    if (confirm(_0x2b8c(109))) {
+    if (confirm(_0x2b8c(131))) {
         try {
             const app = allApps.find(a => a.id === activeAppId);
-            if (!app) return alert(_0x2b8c(88));
+            if (!app) return alert(_0x2b8c(110));
 
-            await deleteDoc(doc(db, _0x2b8c(50), activeAppId));
+            await deleteDoc(doc(db, _0x2b8c(72), activeAppId));
             allApps = allApps.filter(a => a.id !== activeAppId);
             
-            const dateStr = new Date().toLocaleString(_0x2b8c(89));
-            document.getElementById(_0x2b8c(94)).insertAdjacentHTML(_0x2b8c(95), `<tr><td>${currentAdmin.name}</td><td>قام بحذف طلب من قاعدة البيانات</td><td>${dateStr}</td></tr>`);
+            const dateStr = new Date().toLocaleString(_0x2b8c(111));
+            document.getElementById(_0x2b8c(116)).insertAdjacentHTML(_0x2b8c(117), `<tr><td>${currentAdmin.name}</td><td>قام بحذف طلب من قاعدة البيانات</td><td>${dateStr}</td></tr>`);
             
-            document.getElementById(_0x2b8c(85)).style.display = _0x2b8c(15);
+            document.getElementById(_0x2b8c(107)).style.display = _0x2b8c(36);
             renderAll();
-            alert(_0x2b8c(110));
+            alert(_0x2b8c(132));
 
-            let deptNames = { [_0x2b8c(60)]: _0x2b8c(77), [_0x2b8c(61)]: _0x2b8c(78) };
+            let deptNames = { [_0x2b8c(82)]: _0x2b8c(99), [_0x2b8c(83)]: _0x2b8c(100) };
             const embed = {
                 title: `🗑️ حذف طلب تقديم نهائياً`,
                 color: 0x333333,
                 fields: [
-                    { name: _0x2b8c(111), value: app.applicant_name || _0x2b8c(100), inline: true },
-                    { name: _0x2b8c(101), value: String(app.player_id) || _0x2b8c(100), inline: true },
-                    { name: _0x2b8c(112), value: deptNames[app.department] || app.department, inline: true },
-                    { name: _0x2b8c(105), value: currentAdmin.name, inline: true }
+                    { name: _0x2b8c(133), value: app.applicant_name || _0x2b8c(122), inline: true },
+                    { name: _0x2b8c(123), value: String(app.player_id) || _0x2b8c(122), inline: true },
+                    { name: _0x2b8c(134), value: deptNames[app.department] || app.department, inline: true },
+                    { name: _0x2b8c(127), value: currentAdmin.name, inline: true }
                 ],
                 timestamp: new Date().toISOString()
             };
@@ -559,8 +637,91 @@ window.deleteApplication = async function() {
 
         } catch (e) { 
             console.error(e); 
-            alert(_0x2b8c(113)); 
+            alert(_0x2b8c(135)); 
         }
+    }
+};
+
+// Form Customizer (Schema Builder) Logic
+window.loadSchemaForDept = function() {
+    const select = document.getElementById(_0x2b8c(136));
+    if (!select) return;
+    const dept = select.value;
+    schemaEditedFields = activeSchemas[dept] ? JSON.parse(JSON.stringify(activeSchemas[dept])) : [];
+    renderSchemaFieldsList();
+};
+
+function renderSchemaFieldsList() {
+    const listContainer = document.getElementById(_0x2b8c(137));
+    if (!listContainer) return;
+    
+    let html = _0x2b8c(33);
+    if (schemaEditedFields.length === 0) {
+        html = `<div style="color: #aaa; text-align: center; padding: 15px;">لا توجد أسئلة في هذا النموذج حالياً. أضف أسئلة أدناه!</div>`;
+    } else {
+        schemaEditedFields.forEach((field, index) => {
+            let typeLabel = _0x2b8c(138);
+            if (field.type === _0x2b8c(17)) typeLabel = _0x2b8c(139);
+            else if (field.type === _0x2b8c(14)) typeLabel = _0x2b8c(140);
+            
+            html += `
+                <div style="background: rgba(0,0,0,0.3); border: 1px solid #222; padding: 12px 15px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <strong style="color: #fff;">${index + 1}. ${field.label}</strong>
+                        <span style="background: rgba(255,255,255,0.05); color: #aaa; font-size: 0.8rem; padding: 3px 8px; border-radius: 4px; margin-right: 10px;">نوع الإجابة: ${typeLabel}</span>
+                    </div>
+                    <button class="btn-action" style="background: var(--danger); color: #fff; padding: 5px 10px; font-size: 0.9rem;" onclick="window.deleteFieldFromSchema(${index})">🗑️ حذف</button>
+                </div>
+            `;
+        });
+    }
+    listContainer.innerHTML = html;
+}
+
+window.addFieldToSchema = function() {
+    const labelInput = document.getElementById(_0x2b8c(141));
+    const typeSelect = document.getElementById(_0x2b8c(142));
+    
+    if (!labelInput || !typeSelect) return;
+    
+    const label = labelInput.value.trim();
+    const type = typeSelect.value;
+    
+    if (!label) return alert(_0x2b8c(143));
+    
+    // Generate a unique field ID
+    const id = _0x2b8c(144) + Date.now();
+    
+    schemaEditedFields.push({ id, label, type });
+    renderSchemaFieldsList();
+    
+    labelInput.value = _0x2b8c(33); // Clear input
+};
+
+window.deleteFieldFromSchema = function(index) {
+    if (confirm(_0x2b8c(145))) {
+        schemaEditedFields.splice(index, 1);
+        renderSchemaFieldsList();
+    }
+};
+
+window.saveSchemaToFirestore = async function() {
+    const select = document.getElementById(_0x2b8c(136));
+    if (!select) return;
+    const dept = select.value;
+    
+    try {
+        await setDoc(doc(db, _0x2b8c(30), dept), {
+            fields: schemaEditedFields
+        });
+        
+        // Update local cache
+        activeSchemas[dept] = JSON.parse(JSON.stringify(schemaEditedFields));
+        
+        alert(_0x2b8c(146));
+    } catch (e) {
+        console.error(_0x2b8c(147), e);
+        alert(_0x2b8c(148));
     }
 };
 
