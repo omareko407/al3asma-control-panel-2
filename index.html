@@ -87,10 +87,10 @@
 
     <!-- سكريبت إرسال البيانات وحفظها في Firebase مشفر ومحمي بالكامل بأسلوب احترافي -->
     <script type="module">
-const _0x1c8b = ["AIzaSyB9TBHZn3qzhb2eKH9rCTF4rspdLUvRftM","al3asma.firebaseapp.com","al3asma","al3asma.firebasestorage.app","108484620974","1:108484620974:web:04e448d20529c14e89733f","G-W4G5YQ5HFE","https://discord.com/api/webhooks/1519446529289617543/lzSDVGifCJT_bpHkzhNoY7LqzqLOJJRQk3SLyXnHVbgh_rDAgGPTzO4bxp5YC0PRxKq6","1520478786859176087","age","العمر","number","exp","الخبرات السابقة","textarea","story","القصة","questions","أسئلة الإدارة (هل قرأت القوانين؟)","الخبرات الإدارية","servers","السيرفرات السابقة","text","playtime","ساعات اللعب","reason","لماذا تريد الإدارة","form_schemas","Form schemas loaded successfully:","Failed to load schemas from Firestore, using defaults:","هل تريد إلغاء ربط حساب الديسكورد؟","discord_user","DOMContentLoaded","style","access_token","https://discord.com/api/users/@me","https://cdn.discordapp.com/embed/avatars/0.png","Discord Auth Error:","فشل التحقق من حساب ديسكورد!","city","mgmt","","#citySection form","#mgmtSection form","discord-auth-box-city","div","discord-login-container","fields-wrapper-city","discord-auth-box-mgmt","fields-wrapper-mgmt","form-overlay-locked","🏙️ شؤون المدينة (وايت ليست)","💼 شؤون الإدارة","👤 اسم مقدم الطلب","غير معروف","🆔 آيدي اللاعب (ID)","🎮 حساب الديسكورد","📅 تاريخ تقديم الطلب","ar-EG","لا يوجد","بوابة الانضمام - سيرفر العاصمة","https://i.postimg.cc/dVQc70hW/889cfe49-537a-4341-8864-45211c47d0a9.png","POST","Content-Type","application/json","<@&1475975403347902595>","Webhook Error:",".section","active","يرجى تسجيل الدخول بالديسكورد أولاً!",".btn-submit","⏳ جاري الإرسال...","pending","applications","تم إرسال طلبك بنجاح! سيتم مراجعته قريباً.","mainPage","Submission Error:","حدث خطأ في الاتصال بالسيرفر. حاول مرة أخرى.","إرسال الطلب"];
+const _0x1c8b = ["AIzaSyB9TBHZn3qzhb2eKH9rCTF4rspdLUvRftM","al3asma.firebaseapp.com","al3asma","al3asma.firebasestorage.app","108484620974","1:108484620974:web:04e448d20529c14e89733f","G-W4G5YQ5HFE","https://discord.com/api/webhooks/1519446529289617543/lzSDVGifCJT_bpHkzhNoY7LqzqLOJJRQk3SLyXnHVbgh_rDAgGPTzO4bxp5YC0PRxKq6","1520478786859176087","age","العمر","number","exp","الخبرات السابقة","textarea","story","القصة","questions","أسئلة الإدارة (هل قرأت القوانين؟)","الخبرات الإدارية","servers","السيرفرات السابقة","text","playtime","ساعات اللعب","reason","لماذا تريد الإدارة","applications","__schema_city","__schema_mgmt","Form schemas loaded successfully:","Failed to load schemas from Firestore, using defaults:","هل تريد إلغاء ربط حساب الديسكورد؟","discord_user","DOMContentLoaded","style","access_token","https://discord.com/api/users/@me","https://cdn.discordapp.com/embed/avatars/0.png","Discord Auth Error:","فشل التحقق من حساب ديسكورد!","city","mgmt","","#citySection form","#mgmtSection form","discord-auth-box-city","div","discord-login-container","fields-wrapper-city","discord-auth-box-mgmt","fields-wrapper-mgmt","form-overlay-locked","🏙️ شؤون المدينة (وايت ليست)","💼 شؤون الإدارة","👤 اسم مقدم الطلب","غير معروف","🆔 آيدي اللاعب (ID)","🎮 حساب الديسكورد","📅 تاريخ تقديم الطلب","ar-EG","لا يوجد","بوابة الانضمام - سيرفر العاصمة","https://i.postimg.cc/dVQc70hW/889cfe49-537a-4341-8864-45211c47d0a9.png","POST","Content-Type","application/json","<@&1475975403347902595>","Webhook Error:",".section","active","يرجى تسجيل الدخول بالديسكورد أولاً!",".btn-submit","⏳ جاري الإرسال...","pending","تم إرسال طلبك بنجاح! سيتم مراجعته قريباً.","mainPage","Submission Error:","حدث خطأ في الاتصال بالسيرفر. حاول مرة أخرى.","إرسال الطلب"];
 function _0x3b8d(idx) { return _0x1c8b[idx]; }
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
-import { getFirestore, collection, addDoc, getDocs } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+import { getFirestore, collection, addDoc, getDocs, doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 
 const firebaseConfig = {
     apiKey: _0x3b8d(0),
@@ -133,16 +133,21 @@ let activeSchemas = { ...DEFAULT_SCHEMAS };
 
 async function fetchSchemas() {
     try {
-        const querySnapshot = await getDocs(collection(db, _0x3b8d(27)));
-        querySnapshot.forEach((doc) => {
-            const data = doc.data();
-            if (data && data.fields) {
-                activeSchemas[doc.id] = data.fields;
-            }
-        });
-        console.log(_0x3b8d(28), activeSchemas);
+        // Load schemas directly from applications collection to guarantee access permission
+        const citySnap = await getDoc(doc(db, _0x3b8d(27), _0x3b8d(28)));
+        if (citySnap.exists()) {
+            const data = citySnap.data();
+            if (data && data.fields) activeSchemas.city = data.fields;
+        }
+        
+        const mgmtSnap = await getDoc(doc(db, _0x3b8d(27), _0x3b8d(29)));
+        if (mgmtSnap.exists()) {
+            const data = mgmtSnap.data();
+            if (data && data.fields) activeSchemas.mgmt = data.fields;
+        }
+        console.log(_0x3b8d(30), activeSchemas);
     } catch (e) {
-        console.error(_0x3b8d(29), e);
+        console.error(_0x3b8d(31), e);
     }
 }
 
@@ -152,16 +157,16 @@ window.loginWithDiscord = function() {
 };
 
 window.logoutDiscord = function() {
-    if (confirm(_0x3b8d(30))) {
-        localStorage.removeItem(_0x3b8d(31));
+    if (confirm(_0x3b8d(32))) {
+        localStorage.removeItem(_0x3b8d(33));
         loggedInUser = null;
         updateDiscordUI();
     }
 };
 
-window.addEventListener(_0x3b8d(32), async () => {
+window.addEventListener(_0x3b8d(34), async () => {
     // Inject CSS for Discord Auth box
-    const style = document.createElement(_0x3b8d(33));
+    const style = document.createElement(_0x3b8d(35));
     style.innerHTML = `
         .discord-login-container {
             background: rgba(88, 101, 242, 0.15);
@@ -247,17 +252,17 @@ window.addEventListener(_0x3b8d(32), async () => {
     document.head.appendChild(style);
 
     // Read stored user from localStorage
-    const savedUser = localStorage.getItem(_0x3b8d(31));
+    const savedUser = localStorage.getItem(_0x3b8d(33));
     if (savedUser) {
         try {
             const parsed = JSON.parse(savedUser);
             if (Date.now() - parsed.timestamp < 86400000) {
                 loggedInUser = parsed;
             } else {
-                localStorage.removeItem(_0x3b8d(31));
+                localStorage.removeItem(_0x3b8d(33));
             }
         } catch (e) {
-            localStorage.removeItem(_0x3b8d(31));
+            localStorage.removeItem(_0x3b8d(33));
         }
     }
 
@@ -265,11 +270,11 @@ window.addEventListener(_0x3b8d(32), async () => {
     const hash = window.location.hash;
     if (hash) {
         const params = new URLSearchParams(hash.substring(1));
-        const accessToken = params.get(_0x3b8d(34));
+        const accessToken = params.get(_0x3b8d(36));
         if (accessToken) {
             window.history.replaceState({}, document.title, window.location.pathname);
             
-            fetch(_0x3b8d(35), {
+            fetch(_0x3b8d(37), {
                 headers: {
                     Authorization: `Bearer ${accessToken}`
                 }
@@ -280,16 +285,16 @@ window.addEventListener(_0x3b8d(32), async () => {
                     loggedInUser = {
                         id: user.id,
                         username: user.username,
-                        avatar: user.avatar ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png` : _0x3b8d(36),
+                        avatar: user.avatar ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png` : _0x3b8d(38),
                         timestamp: Date.now()
                     };
-                    localStorage.setItem(_0x3b8d(31), JSON.stringify(loggedInUser));
+                    localStorage.setItem(_0x3b8d(33), JSON.stringify(loggedInUser));
                     updateDiscordUI();
                 }
             })
             .catch(err => {
-                console.error(_0x3b8d(37), err);
-                alert(_0x3b8d(38));
+                console.error(_0x3b8d(39), err);
+                alert(_0x3b8d(40));
             });
         }
     }
@@ -298,8 +303,8 @@ window.addEventListener(_0x3b8d(32), async () => {
     await fetchSchemas();
 
     // Render forms
-    renderDynamicForm(_0x3b8d(39));
-    renderDynamicForm(_0x3b8d(40));
+    renderDynamicForm(_0x3b8d(41));
+    renderDynamicForm(_0x3b8d(42));
 
     // Inject Auth Containers in forms
     injectAuthContainers();
@@ -310,7 +315,7 @@ function renderDynamicForm(dept) {
     if (!container) return;
 
     const fields = activeSchemas[dept] || DEFAULT_SCHEMAS[dept];
-    let html = _0x3b8d(41);
+    let html = _0x3b8d(43);
 
     fields.forEach((field) => {
         const inputId = `field_${dept}_${field.id}`;
@@ -329,30 +334,30 @@ function renderDynamicForm(dept) {
 }
 
 function injectAuthContainers() {
-    const cityForm = document.querySelector(_0x3b8d(42));
-    const mgmtForm = document.querySelector(_0x3b8d(43));
+    const cityForm = document.querySelector(_0x3b8d(44));
+    const mgmtForm = document.querySelector(_0x3b8d(45));
 
-    if (cityForm && !document.getElementById(_0x3b8d(44))) {
-        const container = document.createElement(_0x3b8d(45));
-        container.id = _0x3b8d(44);
-        container.className = _0x3b8d(46);
+    if (cityForm && !document.getElementById(_0x3b8d(46))) {
+        const container = document.createElement(_0x3b8d(47));
+        container.id = _0x3b8d(46);
+        container.className = _0x3b8d(48);
         cityForm.insertBefore(container, cityForm.firstChild);
         
-        const fieldsWrapper = document.createElement(_0x3b8d(45));
-        fieldsWrapper.id = _0x3b8d(47);
+        const fieldsWrapper = document.createElement(_0x3b8d(47));
+        fieldsWrapper.id = _0x3b8d(49);
         const children = Array.from(cityForm.children).slice(1);
         children.forEach(child => fieldsWrapper.appendChild(child));
         cityForm.appendChild(fieldsWrapper);
     }
 
-    if (mgmtForm && !document.getElementById(_0x3b8d(48))) {
-        const container = document.createElement(_0x3b8d(45));
-        container.id = _0x3b8d(48);
-        container.className = _0x3b8d(46);
+    if (mgmtForm && !document.getElementById(_0x3b8d(50))) {
+        const container = document.createElement(_0x3b8d(47));
+        container.id = _0x3b8d(50);
+        container.className = _0x3b8d(48);
         mgmtForm.insertBefore(container, mgmtForm.firstChild);
 
-        const fieldsWrapper = document.createElement(_0x3b8d(45));
-        fieldsWrapper.id = _0x3b8d(49);
+        const fieldsWrapper = document.createElement(_0x3b8d(47));
+        fieldsWrapper.id = _0x3b8d(51);
         const children = Array.from(mgmtForm.children).slice(1);
         children.forEach(child => fieldsWrapper.appendChild(child));
         mgmtForm.appendChild(fieldsWrapper);
@@ -362,10 +367,10 @@ function injectAuthContainers() {
 }
 
 function updateDiscordUI() {
-    const cityBox = document.getElementById(_0x3b8d(44));
-    const mgmtBox = document.getElementById(_0x3b8d(48));
-    const cityWrapper = document.getElementById(_0x3b8d(47));
-    const mgmtWrapper = document.getElementById(_0x3b8d(49));
+    const cityBox = document.getElementById(_0x3b8d(46));
+    const mgmtBox = document.getElementById(_0x3b8d(50));
+    const cityWrapper = document.getElementById(_0x3b8d(49));
+    const mgmtWrapper = document.getElementById(_0x3b8d(51));
 
     const htmlNotLoggedIn = `
         <h3 style="color:#fff; margin-top:0;">🔐 تسجيل الدخول بالديسكورد مطلوب</h3>
@@ -376,7 +381,7 @@ function updateDiscordUI() {
         </button>
     `;
 
-    let htmlLoggedIn = _0x3b8d(41);
+    let htmlLoggedIn = _0x3b8d(43);
     if (loggedInUser) {
         htmlLoggedIn = `
             <div class="discord-profile-box">
@@ -397,14 +402,14 @@ function updateDiscordUI() {
         if (cityBox) cityBox.innerHTML = htmlLoggedIn;
         if (mgmtBox) mgmtBox.innerHTML = htmlLoggedIn;
 
-        if (cityWrapper) cityWrapper.classList.remove(_0x3b8d(50));
-        if (mgmtWrapper) mgmtWrapper.classList.remove(_0x3b8d(50));
+        if (cityWrapper) cityWrapper.classList.remove(_0x3b8d(52));
+        if (mgmtWrapper) mgmtWrapper.classList.remove(_0x3b8d(52));
     } else {
         if (cityBox) cityBox.innerHTML = htmlNotLoggedIn;
         if (mgmtBox) mgmtBox.innerHTML = htmlNotLoggedIn;
 
-        if (cityWrapper) cityWrapper.classList.add(_0x3b8d(50));
-        if (mgmtWrapper) mgmtWrapper.classList.add(_0x3b8d(50));
+        if (cityWrapper) cityWrapper.classList.add(_0x3b8d(52));
+        if (mgmtWrapper) mgmtWrapper.classList.add(_0x3b8d(52));
     }
 }
 
@@ -412,22 +417,22 @@ async function sendDiscordNotification(data) {
     if (!webhookUrl) return;
 
     const deptNames = { 
-        [_0x3b8d(39)]: _0x3b8d(51), 
-        [_0x3b8d(40)]: _0x3b8d(52)
+        [_0x3b8d(41)]: _0x3b8d(53), 
+        [_0x3b8d(42)]: _0x3b8d(54)
     };
 
     const fields = [
-        { name: _0x3b8d(53), value: data.applicant_name || _0x3b8d(54), inline: true },
-        { name: _0x3b8d(55), value: String(data.player_id) || _0x3b8d(54), inline: true },
-        { name: _0x3b8d(56), value: `${data.discord_username} (ID: ${data.discord_id})`, inline: true },
-        { name: _0x3b8d(57), value: data.date || new Date().toLocaleString(_0x3b8d(58)), inline: false }
+        { name: _0x3b8d(55), value: data.applicant_name || _0x3b8d(56), inline: true },
+        { name: _0x3b8d(57), value: String(data.player_id) || _0x3b8d(56), inline: true },
+        { name: _0x3b8d(58), value: `${data.discord_username} (ID: ${data.discord_id})`, inline: true },
+        { name: _0x3b8d(59), value: data.date || new Date().toLocaleString(_0x3b8d(60)), inline: false }
     ];
 
     if (data.details) {
         for (const [label, val] of Object.entries(data.details)) {
             fields.push({
                 name: label,
-                value: String(val).substring(0, 1024) || _0x3b8d(59),
+                value: String(val).substring(0, 1024) || _0x3b8d(61),
                 inline: false
             });
         }
@@ -439,54 +444,54 @@ async function sendDiscordNotification(data) {
         fields: fields,
         timestamp: new Date().toISOString(),
         footer: {
-            text: _0x3b8d(60),
-            icon_url: _0x3b8d(61)
+            text: _0x3b8d(62),
+            icon_url: _0x3b8d(63)
         }
     };
 
     try {
         await fetch(webhookUrl, {
-            method: _0x3b8d(62),
-            headers: { [_0x3b8d(63)]: _0x3b8d(64) },
+            method: _0x3b8d(64),
+            headers: { [_0x3b8d(65)]: _0x3b8d(66) },
             body: JSON.stringify({ 
-                content: _0x3b8d(65), 
+                content: _0x3b8d(67), 
                 embeds: [embed] 
             })
         });
     } catch (err) {
-        console.error(_0x3b8d(66), err);
+        console.error(_0x3b8d(68), err);
     }
 }
 
 window.switchPage = function(pageId) {
-    document.querySelectorAll(_0x3b8d(67)).forEach(el => el.classList.remove(_0x3b8d(68)));
-    document.getElementById(pageId).classList.add(_0x3b8d(68));
+    document.querySelectorAll(_0x3b8d(69)).forEach(el => el.classList.remove(_0x3b8d(70)));
+    document.getElementById(pageId).classList.add(_0x3b8d(70));
 };
 
 window.handleFormSubmit = async function(event, dept) {
     event.preventDefault();
     
     if (!loggedInUser) {
-        alert(_0x3b8d(69));
+        alert(_0x3b8d(71));
         return;
     }
 
-    const submitBtn = event.target.querySelector(_0x3b8d(70));
-    submitBtn.innerText = _0x3b8d(71);
+    const submitBtn = event.target.querySelector(_0x3b8d(72));
+    submitBtn.innerText = _0x3b8d(73);
     submitBtn.disabled = true;
 
     let appData = {
         department: dept,
-        status: _0x3b8d(72),
-        reason: _0x3b8d(41),
-        custom_reason: _0x3b8d(41),
-        admin: _0x3b8d(41),
-        date: new Date().toLocaleString(_0x3b8d(58)),
+        status: _0x3b8d(74),
+        reason: _0x3b8d(43),
+        custom_reason: _0x3b8d(43),
+        admin: _0x3b8d(43),
+        date: new Date().toLocaleString(_0x3b8d(60)),
         discord_username: loggedInUser.username,
         discord_id: loggedInUser.id,
         discord: loggedInUser.username, // Compatibility
-        applicant_name: loggedInUser.username, // Default name to Discord Username
-        player_id: loggedInUser.id, // Default ID to Discord ID
+        applicant_name: loggedInUser.username, 
+        player_id: loggedInUser.id, 
         details: {}
     };
 
@@ -501,18 +506,18 @@ window.handleFormSubmit = async function(event, dept) {
     });
 
     try {
-        await addDoc(collection(db, _0x3b8d(73)), appData);
+        await addDoc(collection(db, _0x3b8d(27)), appData);
         await sendDiscordNotification(appData);
         
-        alert(_0x3b8d(74));
+        alert(_0x3b8d(75));
         event.target.reset();
         updateDiscordUI();
-        window.switchPage(_0x3b8d(75));
+        window.switchPage(_0x3b8d(76));
     } catch (err) {
-        console.error(_0x3b8d(76), err);
-        alert(_0x3b8d(77));
+        console.error(_0x3b8d(77), err);
+        alert(_0x3b8d(78));
     } finally {
-        submitBtn.innerText = _0x3b8d(78);
+        submitBtn.innerText = _0x3b8d(79);
         submitBtn.disabled = false;
     }
 };
