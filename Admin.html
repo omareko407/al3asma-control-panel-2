@@ -85,8 +85,6 @@
         <div class="nav-item active" onclick="window.switchTab('dashboardTab', this)">📊 الإحصائيات</div>
         <div class="nav-item" id="nav-city" style="display:none;" onclick="window.switchTab('cityTab', this)">🏙️ شؤون المدينة</div>
         <div class="nav-item" id="nav-mgmt" style="display:none;" onclick="window.switchTab('mgmtTab', this)">💼 شؤون الإدارة</div>
-        <div class="nav-item" id="nav-health" style="display:none;" onclick="window.switchTab('healthTab', this)">🩺 وزارة الصحة</div>
-        <div class="nav-item" id="nav-interior" style="display:none;" onclick="window.switchTab('interiorTab', this)">🦅 وزارة الداخلية</div>
         <div class="nav-item" onclick="window.switchTab('logsTab', this)">📜 سجل العمليات</div>
         <div class="nav-item" id="nav-roles" style="display:none; border-top: 1px solid #222; margin-top: auto; color: var(--warning);" onclick="window.switchTab('rolesTab', this)">👑 إدارة الرتب</div>
     </div>
@@ -130,28 +128,6 @@
                 <div class="table-container"><table><thead><tr><th>الاسم</th><th>الآيدي</th><th>تاريخ الرفض</th><th>السبب</th><th>الأدمن</th></tr></thead><tbody id="mgmt-rejected"></tbody></table></div>
             </div>
 
-            <div id="healthTab" class="content-section">
-                <h2 class="dept-title">🩺 تقديمات وزارة الصحة</h2>
-                <input type="text" class="search-box" id="search-health" placeholder="🔍 ابحث بالاسم، الآيدي..." onkeyup="window.filterTables('health')">
-                <div class="section-header" style="color: var(--warning);">⏳ المعلقين</div>
-                <div class="table-container"><table><thead><tr><th>الاسم</th><th>الآيدي</th><th>التاريخ</th><th>الحالة</th><th>الإجراء</th></tr></thead><tbody id="health-pending"></tbody></table></div>
-                <div class="section-header" style="color: var(--success);">✅ المقبولين</div>
-                <div class="table-container"><table><thead><tr><th>الاسم</th><th>الآيدي</th><th>تاريخ القبول</th><th>الأدمن</th></tr></thead><tbody id="health-accepted"></tbody></table></div>
-                <div class="section-header" style="color: var(--danger);">❌ المرفوضين</div>
-                <div class="table-container"><table><thead><tr><th>الاسم</th><th>الآيدي</th><th>تاريخ الرفض</th><th>السبب</th><th>الأدمن</th></tr></thead><tbody id="health-rejected"></tbody></table></div>
-            </div>
-
-            <div id="interiorTab" class="content-section">
-                <h2 class="dept-title">🦅 تقديمات وزارة الداخلية</h2>
-                <input type="text" class="search-box" id="search-interior" placeholder="🔍 ابحث بالاسم، الآيدي..." onkeyup="window.filterTables('interior')">
-                <div class="section-header" style="color: var(--warning);">⏳ المعلقين</div>
-                <div class="table-container"><table><thead><tr><th>الاسم</th><th>الآيدي</th><th>التاريخ</th><th>الحالة</th><th>الإجراء</th></tr></thead><tbody id="interior-pending"></tbody></table></div>
-                <div class="section-header" style="color: var(--success);">✅ المقبولين</div>
-                <div class="table-container"><table><thead><tr><th>الاسم</th><th>الآيدي</th><th>تاريخ القبول</th><th>الأدمن</th></tr></thead><tbody id="interior-accepted"></tbody></table></div>
-                <div class="section-header" style="color: var(--danger);">❌ المرفوضين</div>
-                <div class="table-container"><table><thead><tr><th>الاسم</th><th>الآيدي</th><th>تاريخ الرفض</th><th>السبب</th><th>الأدمن</th></tr></thead><tbody id="interior-rejected"></tbody></table></div>
-            </div>
-
             <div id="logsTab" class="content-section">
                 <h2 class="dept-title">📜 سجل العمليات (Audit Logs)</h2>
                 <div class="table-container"><table><thead><tr><th>الأدمن</th><th>العملية</th><th>التاريخ والوقت</th></tr></thead><tbody id="logs-body"></tbody></table></div>
@@ -192,7 +168,7 @@
         </div>
     </div>
     <script type="module">
-const _0x3e1d = ["AIzaSyB9TBHZn3qzhb2eKH9rCTF4rspdLUvRftM","al3asma.firebaseapp.com","al3asma","al3asma.firebasestorage.app","108484620974","1:108484620974:web:04e448d20529c14e89733f","G-W4G5YQ5HFE","https://discord.com/api/webhooks/1519446529289617543/lzSDVGifCJT_bpHkzhNoY7LqzqLOJJRQk3SLyXnHVbgh_rDAgGPTzO4bxp5YC0PRxKq6","POST","Content-Type","application/json","Error Webhook:","","loginForm","registerForm","none","block","regEmail","regName","regPassword","btnRegister","أكمل البيانات!","جاري الإنشاء...","admins","pending","تم إنشاء حسابك الآمن. يرجى انتظار تفعيل رئيس مجلس الإدارة.","error: ","إرسال الطلب","loginEmail","loginPassword","btnLogin","أدخل البريد وكلمة المرور.","جاري التحقق...","حسابك قيد المراجعة من رئيس مجلس الإدارة ولم يتم تفعيله بعد.","دخول للنظام","لا توجد بيانات صلاحيات لهذا الحساب.","loginError","authScreen","mainWrapper","flex","myEmailDisplay","الحساب: ","myRoleDisplay","رتبة: ","chairman","nav-city","nav-mgmt","nav-health","nav-interior","nav-roles","hr","management","health_affairs","interior_affairs","applications","admin-users-body","role_","تم تحديث الرتبة بنجاح!",".nav-item","active",".content-section","active-section","sidebar","active-mobile","city","mgmt","health","interior","accepted","rejected","-pending","<tr><td colspan='6'>لا يوجد</td></tr>","-accepted","<tr><td colspan='5'>لا يوجد</td></tr>","-rejected","stat-total","stat-pending","stat-accepted","stat-rejected","search-","Tab",".search-row","المدينة","الإدارة","وزارة الصحة","وزارة الداخلية","modalDeptName","modalContentData","primaryActions","acceptSection","rejectSection","rejectReasonText","reviewModal","rejectType","اكتب السبب!","الطلب غير موجود!","ar-EG","قبل (",")","رفض (",") بسبب: ","logs-body","afterbegin","✅ وايت ليست (قبول نهائي)","❌ رفض الطلب","👤 اسم مقدم الطلب","غير معروف","🆔 آيدي اللاعب (ID)","🎮 حساب الديسكورد","لا يوجد","📈 الحالة الجديدة","👮 الأدمن المسؤول","⚠️ نوع الرفض","📝 السبب بالتفصيل","خطأ في تحديث البيانات","هل أنت متأكد من حذف هذا الطلب نهائياً من قاعدة البيانات؟ لا يمكن التراجع عن هذا الإجراء.","تم حذف الطلب نهائياً.","👤 الاسم","🏢 القسم","خطأ في حذف الطلب."];
+const _0x3e1d = ["AIzaSyB9TBHZn3qzhb2eKH9rCTF4rspdLUvRftM","al3asma.firebaseapp.com","al3asma","al3asma.firebasestorage.app","108484620974","1:108484620974:web:04e448d20529c14e89733f","G-W4G5YQ5HFE","https://discord.com/api/webhooks/1519446529289617543/lzSDVGifCJT_bpHkzhNoY7LqzqLOJJRQk3SLyXnHVbgh_rDAgGPTzO4bxp5YC0PRxKq6","POST","Content-Type","application/json","Error Webhook:","","loginForm","registerForm","none","block","regEmail","regName","regPassword","btnRegister","أكمل البيانات!","جاري الإنشاء...","admins","pending","تم إنشاء حسابك الآمن. يرجى انتظار تفعيل رئيس مجلس الإدارة.","error: ","إرسال الطلب","loginEmail","loginPassword","btnLogin","أدخل البريد وكلمة المرور.","جاري التحقق...","حسابك قيد المراجعة من رئيس مجلس الإدارة ولم يتم تفعيله بعد.","دخول للنظام","لا توجد بيانات صلاحيات لهذا الحساب.","loginError","authScreen","mainWrapper","flex","myEmailDisplay","الحساب: ","myRoleDisplay","رتبة: ","chairman","nav-city","nav-mgmt","nav-roles","hr","management","applications","admin-users-body","role_","تم تحديث الرتبة بنجاح!",".nav-item","active",".content-section","active-section","sidebar","active-mobile","city","mgmt","accepted","accepted_temp","rejected","-pending","-accepted","-rejected","<tr><td colspan='6'>لا يوجد</td></tr>","<tr><td colspan='5'>لا يوجد</td></tr>","stat-total","stat-pending","stat-accepted","stat-rejected","search-","Tab",".search-row","المدينة","الإدارة","modalDeptName","modalContentData","acceptSection","primaryActions","rejectSection","rejectReasonText","reviewModal","rejectType","اكتب السبب!","الطلب غير موجود!","ar-EG","قبل (",")","رفض (",") بسبب: ","logs-body","afterbegin","✅ قبول نهائي","⏳ قبول مبدئي (رول)","❌ رفض الطلب","👤 اسم مقدم الطلب","غير معروف","🆔 آيدي اللاعب (ID)","🎮 حساب الديسكورد","لا يوجد","📈 الحالة الجديدة","👮 الأدمن المسؤول","⚠️ نوع الرفض","📝 السبب بالتفصيل","خطأ في تحديث البيانات","هل أنت متأكد من حذف هذا الطلب نهائياً من قاعدة البيانات؟ لا يمكن التراجع عن هذا الإجراء.","تم حذف الطلب نهائياً.","👤 الاسم","🏢 القسم","خطأ في حذف الطلب."];
 function _0x2b8c(idx) { return _0x3e1d[idx]; }
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getFirestore, collection, getDocs, doc, setDoc, updateDoc, getDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
@@ -333,16 +309,10 @@ function enterSystem() {
         document.getElementById(_0x2b8c(45)).style.display = _0x2b8c(16);
         document.getElementById(_0x2b8c(46)).style.display = _0x2b8c(16);
         document.getElementById(_0x2b8c(47)).style.display = _0x2b8c(16);
-        document.getElementById(_0x2b8c(48)).style.display = _0x2b8c(16);
-        document.getElementById(_0x2b8c(49)).style.display = _0x2b8c(16);
-    } else if (currentAdmin.role === _0x2b8c(50)) { 
+    } else if (currentAdmin.role === _0x2b8c(48)) { 
         document.getElementById(_0x2b8c(45)).style.display = _0x2b8c(16); 
-    } else if (currentAdmin.role === _0x2b8c(51)) { 
+    } else if (currentAdmin.role === _0x2b8c(49)) { 
         document.getElementById(_0x2b8c(46)).style.display = _0x2b8c(16); 
-    } else if (currentAdmin.role === _0x2b8c(52)) { 
-        document.getElementById(_0x2b8c(47)).style.display = _0x2b8c(16); 
-    } else if (currentAdmin.role === _0x2b8c(53)) { 
-        document.getElementById(_0x2b8c(48)).style.display = _0x2b8c(16); 
     }
 
     loadData();
@@ -355,7 +325,7 @@ window.logout = async function() {
 };
 
 async function loadData() {
-    const querySnapshot = await getDocs(collection(db, _0x2b8c(54)));
+    const querySnapshot = await getDocs(collection(db, _0x2b8c(50)));
     allApps = [];
     querySnapshot.forEach((doc) => { allApps.push({ id: doc.id, ...doc.data() }); });
     renderAll();
@@ -373,35 +343,33 @@ async function loadAdmins() {
                 <option value="pending" ${admin.role === 'pending' ? 'selected' : ''}>معلق</option>
                 <option value="hr" ${admin.role === 'hr' ? 'selected' : ''}>HR (مدينة)</option>
                 <option value="management" ${admin.role === 'management' ? 'selected' : ''}>مجلس إدارة</option>
-                <option value="health_affairs" ${admin.role === 'health_affairs' ? 'selected' : ''}>شؤون الصحة</option>
-                <option value="interior_affairs" ${admin.role === 'interior_affairs' ? 'selected' : ''}>شؤون الداخلية</option>
                 <option value="chairman" ${admin.role === 'chairman' ? 'selected' : ''}>رئيس مجلس الإدارة</option>
             </select>
             <button class="btn-action" onclick="window.updateAdminRole('${doc.id}')">حفظ</button>
         </td></tr>`;
     });
-    document.getElementById(_0x2b8c(55)).innerHTML = adminsHTML;
+    document.getElementById(_0x2b8c(51)).innerHTML = adminsHTML;
 }
 
 window.updateAdminRole = async function(uid) {
-    const newRole = document.getElementById(_0x2b8c(56) + uid).value;
+    const newRole = document.getElementById(_0x2b8c(52) + uid).value;
     await updateDoc(doc(db, _0x2b8c(23), uid), { role: newRole });
-    alert(_0x2b8c(57));
+    alert(_0x2b8c(53));
     loadAdmins();
 };
 
 window.switchTab = function(tabId, element) {
-    document.querySelectorAll(_0x2b8c(58)).forEach(el => el.classList.remove(_0x2b8c(59)));
-    element.classList.add(_0x2b8c(59));
-    document.querySelectorAll(_0x2b8c(60)).forEach(sec => sec.classList.remove(_0x2b8c(61)));
-    document.getElementById(tabId).classList.add(_0x2b8c(61));
+    document.querySelectorAll(_0x2b8c(54)).forEach(el => el.classList.remove(_0x2b8c(55)));
+    element.classList.add(_0x2b8c(55));
+    document.querySelectorAll(_0x2b8c(56)).forEach(sec => sec.classList.remove(_0x2b8c(57)));
+    document.getElementById(tabId).classList.add(_0x2b8c(57));
     if (window.innerWidth <= 768) {
-        document.getElementById(_0x2b8c(62)).classList.remove(_0x2b8c(63));
+        document.getElementById(_0x2b8c(58)).classList.remove(_0x2b8c(59));
     }
 };
 
 function renderAll() {
-    const depts = [_0x2b8c(64), _0x2b8c(65), _0x2b8c(66), _0x2b8c(67)];
+    const depts = [_0x2b8c(60), _0x2b8c(61)];
     let counts = { pending: 0, accepted: 0, rejected: 0, total: allApps.length };
 
     depts.forEach(dept => {
@@ -409,33 +377,38 @@ function renderAll() {
         allApps.filter(app => app.department === dept).forEach(app => {
             counts[app.status]++;
             let trContent = `<td>${app.applicant_name}</td><td>${app.player_id}</td>`;
-            if (dept === _0x2b8c(64)) trContent += `<td>${app.discord || "لا يوجد"}</td>`;
+            trContent += `<td>\thapp.discord_username || "لا يوجد"}</td>`;
             
             if (app.status === _0x2b8c(24)) {
                 pendingHTML += `<tr class="search-row"> ${trContent} <td>${app.date}</td> <td><span class="status pending">معلق</span></td> <td><button class="btn-action" onclick="window.openReview('${app.id}')">مراجعة</button></td> </tr>`;
-            } else if (app.status === _0x2b8c(68)) {
-                acceptedHTML += `<tr class="search-row"> ${trContent} <td>${app.date}</td> <td style="color:var(--accent-glow);">${app.admin}</td> </tr>`;
-            } else if (app.status === _0x2b8c(69)) {
+            } else if (app.status === _0x2b8c(62) || app.status === _0x2b8c(63)) {
+                acceptedHTML += `<tr class="search-row"> ${trContent} <td>${app.date}</td> <td style="color:var(--accent-glow);">${app.admin} (${app.status === 'accepted_temp' ? 'مقبول مبدئياً' : 'قبول نهائي'})</td> </tr>`;
+            } else if (app.status === _0x2b8c(64)) {
                 let rejectMsg = `<b>${app.reason}</b><br><span style="font-size:0.8rem; color:#ccc;">${app.custom_reason}</span>`;
                 rejectedHTML += `<tr class="search-row"> ${trContent} <td>${app.date}</td> <td><span class="status rejected" style="display:inline-block; padding:8px;">${rejectMsg}</span></td> <td style="color:var(--accent-glow);">${app.admin}</td> </tr>`;
             }
         });
 
-        document.getElementById(dept + _0x2b8c(70)).innerHTML = pendingHTML || _0x2b8c(71);
-        document.getElementById(dept + _0x2b8c(72)).innerHTML = acceptedHTML || _0x2b8c(73);
-        document.getElementById(dept + _0x2b8c(74)).innerHTML = rejectedHTML || _0x2b8c(71);
+        const pendingContainer = document.getElementById(dept + _0x2b8c(65));
+        const acceptedContainer = document.getElementById(dept + _0x2b8c(66));
+        const rejectedContainer = document.getElementById(dept + _0x2b8c(67));
+        
+        if (pendingContainer) pendingContainer.innerHTML = pendingHTML || _0x2b8c(68);
+        if (acceptedContainer) acceptedContainer.innerHTML = acceptedHTML || _0x2b8c(69);
+        if (rejectedContainer) rejectedContainer.innerHTML = rejectedHTML || _0x2b8c(68);
     });
 
-    document.getElementById(_0x2b8c(75)).innerText = counts.total;
-    document.getElementById(_0x2b8c(76)).innerText = counts.pending;
-    document.getElementById(_0x2b8c(77)).innerText = counts.accepted;
-    document.getElementById(_0x2b8c(78)).innerText = counts.rejected;
+    document.getElementById(_0x2b8c(70)).innerText = counts.total;
+    document.getElementById(_0x2b8c(71)).innerText = counts.pending;
+    document.getElementById(_0x2b8c(72)).innerText = counts.accepted;
+    document.getElementById(_0x2b8c(73)).innerText = counts.rejected;
 }
 
 window.filterTables = function(dept) {
-    const input = document.getElementById(_0x2b8c(79) + dept).value.toUpperCase();
-    const tab = document.getElementById(dept + _0x2b8c(80));
-    const rows = tab.querySelectorAll(_0x2b8c(81));
+    const input = document.getElementById(_0x2b8c(74) + dept).value.toUpperCase();
+    const tab = document.getElementById(dept + _0x2b8c(75));
+    if (!tab) return;
+    const rows = tab.querySelectorAll(_0x2b8c(76));
     rows.forEach(row => { 
         row.style.display = (row.innerText || row.textContent).toUpperCase().includes(input) ? _0x2b8c(12) : _0x2b8c(15); 
     });
@@ -444,56 +417,68 @@ window.filterTables = function(dept) {
 window.openReview = function(id) {
     activeAppId = id;
     const app = allApps.find(a => a.id === id);
-    let deptNames = { [_0x2b8c(64)]: _0x2b8c(82), [_0x2b8c(65)]: _0x2b8c(83), [_0x2b8c(66)]: _0x2b8c(84), [_0x2b8c(67)]: _0x2b8c(85) };
-    document.getElementById(_0x2b8c(86)).innerText = deptNames[app.department];
+    let deptNames = { [_0x2b8c(60)]: _0x2b8c(77), [_0x2b8c(61)]: _0x2b8c(78) };
+    document.getElementById(_0x2b8c(79)).innerText = deptNames[app.department] || app.department;
     
-    let detailsHTML = `<div class="form-row"><span>الاسم:</span><div>${app.applicant_name}</div></div><div class="form-row"><span>الآيدي:</span><div>${app.player_id}</div></div>`;
+    let detailsHTML = `<div class="form-row"><span>الاسم:</span><div>${app.applicant_name}</div></div><div class="form-row"><span>الآيدي:</span><div>${app.player_id}</div></div><div class="form-row"><span>ديسكورد موثق:</span><div>${app.discord_username || 'غير متوفر'} (ID: ${app.discord_id || 'غير متوفر'})</div></div>`;
     if (app.details) {
-        if (app.department === _0x2b8c(64)) { 
-            detailsHTML += `<div class="form-row"><span>العمر:</span><div>${app.details.age}</div></div><div class="form-row"><span>الديسكورد:</span><div>${app.discord}</div></div><div class="form-row"><span>الخبرات:</span><div>${app.details.experience}</div></div><div class="form-row"><span>سبب الانضمام:</span><div>${app.details.join_reason}</div></div><div class="form-row"><span>أسئلة الإدارة:</span><div>${app.details.questions}</div></div>`; 
-        } else if (app.department === _0x2b8c(65)) { 
+        if (app.department === _0x2b8c(60)) { 
+            detailsHTML += `<div class="form-row"><span>العمر:</span><div>${app.details.age}</div></div><div class="form-row"><span>الخبرات:</span><div>${app.details.experience}</div></div><div class="form-row"><span>سبب الانضمام:</span><div>${app.details.join_reason}</div></div><div class="form-row"><span>أسئلة الإدارة:</span><div>${app.details.questions}</div></div>`; 
+        } else if (app.department === _0x2b8c(61)) { 
             detailsHTML += `<div class="form-row"><span>العمر:</span><div>${app.details.age}</div></div><div class="form-row"><span>الخبرات الإدارية:</span><div>${app.details.admin_exp}</div></div><div class="form-row"><span>السيرفرات السابقة:</span><div>${app.details.previous_servers}</div></div><div class="form-row"><span>ساعات اللعب:</span><div>${app.details.playtime}</div></div><div class="form-row"><span>لماذا تريد الإدارة:</span><div>${app.details.join_reason}</div></div>`; 
-        } else if (app.department === _0x2b8c(66) || app.department === _0x2b8c(67)) { 
-            detailsHTML += `<div class="form-row"><span>العمر:</span><div>${app.details.age}</div></div><div class="form-row"><span>الخبرات:</span><div>${app.details.med_exp || app.details.sec_exp}</div></div><div class="form-row"><span>سبب الانضمام:</span><div>${app.details.join_reason}</div></div><div class="form-row"><span>الأسئلة:</span><div>${app.details.questions}</div></div>`; 
         }
     }
 
-    document.getElementById(_0x2b8c(87)).innerHTML = detailsHTML;
-    document.getElementById(_0x2b8c(88)).style.display = _0x2b8c(39);
-    document.getElementById(_0x2b8c(89)).style.display = _0x2b8c(15);
-    document.getElementById(_0x2b8c(90)).style.display = _0x2b8c(15);
-    document.getElementById(_0x2b8c(91)).value = _0x2b8c(12); 
-    document.getElementById(_0x2b8c(92)).style.display = _0x2b8c(39);
+    document.getElementById(_0x2b8c(80)).innerHTML = detailsHTML;
+    
+    // Set dynamic acceptance buttons based on department
+    if (app.department === _0x2b8c(60)) {
+        document.getElementById(_0x2b8c(81)).innerHTML = `
+            <button class="btn-action" style="background: var(--warning); width: 100%; font-size: 1.1rem; margin-bottom: 10px;" onclick="window.submitDecision('accepted_temp', 'مقبول مبدئياً', '')">مقبول مبدئياً (رول)</button>
+            <button class="btn-action" style="background: var(--success); width: 100%; font-size: 1.1rem;" onclick="window.submitDecision('accepted', 'وايت ليست', '')">وايت ليست (قبول نهائي)</button>
+        `;
+    } else {
+        document.getElementById(_0x2b8c(81)).innerHTML = `
+            <button class="btn-action" style="background: var(--warning); width: 100%; font-size: 1.1rem; margin-bottom: 10px;" onclick="window.submitDecision('accepted_temp', 'مقبول مبدئياً للإدارة', '')">مقبول مبدئياً للإدارة (رول)</button>
+            <button class="btn-action" style="background: var(--success); width: 100%; font-size: 1.1rem;" onclick="window.submitDecision('accepted', 'قبول نهائي', '')">قبول نهائي للإدارة</button>
+        `;
+    }
+
+    document.getElementById(_0x2b8c(82)).style.display = _0x2b8c(39);
+    document.getElementById(_0x2b8c(81)).style.display = _0x2b8c(15);
+    document.getElementById(_0x2b8c(83)).style.display = _0x2b8c(15);
+    document.getElementById(_0x2b8c(84)).value = _0x2b8c(12); 
+    document.getElementById(_0x2b8c(85)).style.display = _0x2b8c(39);
 };
 
 window.showAcceptSection = function() { 
-    document.getElementById(_0x2b8c(88)).style.display = _0x2b8c(15); 
-    document.getElementById(_0x2b8c(89)).style.display = _0x2b8c(16); 
+    document.getElementById(_0x2b8c(82)).style.display = _0x2b8c(15); 
+    document.getElementById(_0x2b8c(81)).style.display = _0x2b8c(16); 
 };
 
 window.showRejectSection = function() { 
-    document.getElementById(_0x2b8c(88)).style.display = _0x2b8c(15); 
-    document.getElementById(_0x2b8c(90)).style.display = _0x2b8c(16); 
+    document.getElementById(_0x2b8c(82)).style.display = _0x2b8c(15); 
+    document.getElementById(_0x2b8c(83)).style.display = _0x2b8c(16); 
 };
 
 window.executeReject = function() {
-    const rType = document.getElementById(_0x2b8c(93)).value;
-    const rReason = document.getElementById(_0x2b8c(91)).value;
-    if (!rReason) return alert(_0x2b8c(94));
-    window.submitDecision(_0x2b8c(69), rType, rReason);
+    const rType = document.getElementById(_0x2b8c(86)).value;
+    const rReason = document.getElementById(_0x2b8c(84)).value;
+    if (!rReason) return alert(_0x2b8c(87));
+    window.submitDecision(_0x2b8c(64), rType, rReason);
 };
 
 window.submitDecision = async function(newStatus, reasonTitle, customReasonText) {
     try {
         const app = allApps.find(a => a.id === activeAppId);
-        if (!app) return alert(_0x2b8c(95));
+        if (!app) return alert(_0x2b8c(88));
 
-        await updateDoc(doc(db, _0x2b8c(54), activeAppId), {
+        await updateDoc(doc(db, _0x2b8c(50), activeAppId), {
             status: newStatus,
             reason: reasonTitle,
             custom_reason: customReasonText,
             admin: currentAdmin.name,
-            date: new Date().toLocaleString(_0x2b8c(96))
+            date: new Date().toLocaleString(_0x2b8c(89))
         });
 
         const appIndex = allApps.findIndex(a => a.id === activeAppId);
@@ -502,34 +487,34 @@ window.submitDecision = async function(newStatus, reasonTitle, customReasonText)
         allApps[appIndex].custom_reason = customReasonText;
         allApps[appIndex].admin = currentAdmin.name;
         
-        let logMsg = newStatus === _0x2b8c(68) ? _0x2b8c(97) + allApps[appIndex].applicant_name + _0x2b8c(98) : _0x2b8c(99) + allApps[appIndex].applicant_name + _0x2b8c(100) + customReasonText;
-        const dateStr = new Date().toLocaleString(_0x2b8c(96));
-        document.getElementById(_0x2b8c(101)).insertAdjacentHTML(_0x2b8c(102), `<tr><td>${currentAdmin.name}</td><td>${logMsg}</td><td>${dateStr}</td></tr>`);
+        let logMsg = newStatus.startsWith(_0x2b8c(62)) ? _0x2b8c(90) + allApps[appIndex].applicant_name + _0x2b8c(91) : _0x2b8c(92) + allApps[appIndex].applicant_name + _0x2b8c(93) + customReasonText;
+        const dateStr = new Date().toLocaleString(_0x2b8c(89));
+        document.getElementById(_0x2b8c(94)).insertAdjacentHTML(_0x2b8c(95), `<tr><td>${currentAdmin.name}</td><td>${logMsg}</td><td>${dateStr}</td></tr>`);
         
-        document.getElementById(_0x2b8c(92)).style.display = _0x2b8c(15);
+        document.getElementById(_0x2b8c(85)).style.display = _0x2b8c(15);
         renderAll(); 
 
-        const color = newStatus === _0x2b8c(68) ? 0x10b981 : 0xef4444;
-        const statusText = newStatus === _0x2b8c(68) ? _0x2b8c(103) : _0x2b8c(104);
-        let deptNames = { [_0x2b8c(64)]: _0x2b8c(82), [_0x2b8c(65)]: _0x2b8c(83), [_0x2b8c(66)]: _0x2b8c(84), [_0x2b8c(67)]: _0x2b8c(85) };
+        const color = newStatus === _0x2b8c(62) ? 0x10b981 : (newStatus === _0x2b8c(63) ? 0xf59e0b : 0xef4444);
+        const statusText = newStatus === _0x2b8c(62) ? _0x2b8c(96) : (newStatus === _0x2b8c(63) ? _0x2b8c(97) : _0x2b8c(98));
+        let deptNames = { [_0x2b8c(60)]: _0x2b8c(77), [_0x2b8c(61)]: _0x2b8c(78) };
         
         const embed = {
             title: `📢 تحديث حالة طلب التقديم - قسم ${deptNames[app.department] || app.department}`,
             color: color,
             fields: [
-                { name: _0x2b8c(105), value: app.applicant_name || _0x2b8c(106), inline: true },
-                { name: _0x2b8c(107), value: String(app.player_id) || _0x2b8c(106), inline: true },
-                { name: _0x2b8c(108), value: app.discord || _0x2b8c(109), inline: true },
-                { name: _0x2b8c(110), value: statusText, inline: true },
-                { name: _0x2b8c(111), value: currentAdmin.name, inline: true }
+                { name: _0x2b8c(99), value: app.applicant_name || _0x2b8c(100), inline: true },
+                { name: _0x2b8c(101), value: String(app.player_id) || _0x2b8c(100), inline: true },
+                { name: _0x2b8c(102), value: app.discord_username || _0x2b8c(103), inline: true },
+                { name: _0x2b8c(104), value: statusText, inline: true },
+                { name: _0x2b8c(105), value: currentAdmin.name, inline: true }
             ],
             timestamp: new Date().toISOString()
         };
 
-        if (newStatus === _0x2b8c(69)) {
+        if (newStatus === _0x2b8c(64)) {
             embed.fields.push(
-                { name: _0x2b8c(112), value: reasonTitle, inline: true },
-                { name: _0x2b8c(113), value: customReasonText || _0x2b8c(109), inline: false }
+                { name: _0x2b8c(106), value: reasonTitle, inline: true },
+                { name: _0x2b8c(107), value: customReasonText || _0x2b8c(103), inline: false }
             );
         }
 
@@ -537,35 +522,35 @@ window.submitDecision = async function(newStatus, reasonTitle, customReasonText)
 
     } catch (e) { 
         console.error(e); 
-        alert(_0x2b8c(114)); 
+        alert(_0x2b8c(108)); 
     }
 };
 
 window.deleteApplication = async function() {
-    if (confirm(_0x2b8c(115))) {
+    if (confirm(_0x2b8c(109))) {
         try {
             const app = allApps.find(a => a.id === activeAppId);
-            if (!app) return alert(_0x2b8c(95));
+            if (!app) return alert(_0x2b8c(88));
 
-            await deleteDoc(doc(db, _0x2b8c(54), activeAppId));
+            await deleteDoc(doc(db, _0x2b8c(50), activeAppId));
             allApps = allApps.filter(a => a.id !== activeAppId);
             
-            const dateStr = new Date().toLocaleString(_0x2b8c(96));
-            document.getElementById(_0x2b8c(101)).insertAdjacentHTML(_0x2b8c(102), `<tr><td>${currentAdmin.name}</td><td>قام بحذف طلب من قاعدة البيانات</td><td>${dateStr}</td></tr>`);
+            const dateStr = new Date().toLocaleString(_0x2b8c(89));
+            document.getElementById(_0x2b8c(94)).insertAdjacentHTML(_0x2b8c(95), `<tr><td>${currentAdmin.name}</td><td>قام بحذف طلب من قاعدة البيانات</td><td>${dateStr}</td></tr>`);
             
-            document.getElementById(_0x2b8c(92)).style.display = _0x2b8c(15);
+            document.getElementById(_0x2b8c(85)).style.display = _0x2b8c(15);
             renderAll();
-            alert(_0x2b8c(116));
+            alert(_0x2b8c(110));
 
-            let deptNames = { [_0x2b8c(64)]: _0x2b8c(82), [_0x2b8c(65)]: _0x2b8c(83), [_0x2b8c(66)]: _0x2b8c(84), [_0x2b8c(67)]: _0x2b8c(85) };
+            let deptNames = { [_0x2b8c(60)]: _0x2b8c(77), [_0x2b8c(61)]: _0x2b8c(78) };
             const embed = {
                 title: `🗑️ حذف طلب تقديم نهائياً`,
                 color: 0x333333,
                 fields: [
-                    { name: _0x2b8c(117), value: app.applicant_name || _0x2b8c(106), inline: true },
-                    { name: _0x2b8c(107), value: String(app.player_id) || _0x2b8c(106), inline: true },
-                    { name: _0x2b8c(118), value: deptNames[app.department] || app.department, inline: true },
-                    { name: _0x2b8c(111), value: currentAdmin.name, inline: true }
+                    { name: _0x2b8c(111), value: app.applicant_name || _0x2b8c(100), inline: true },
+                    { name: _0x2b8c(101), value: String(app.player_id) || _0x2b8c(100), inline: true },
+                    { name: _0x2b8c(112), value: deptNames[app.department] || app.department, inline: true },
+                    { name: _0x2b8c(105), value: currentAdmin.name, inline: true }
                 ],
                 timestamp: new Date().toISOString()
             };
@@ -574,7 +559,7 @@ window.deleteApplication = async function() {
 
         } catch (e) { 
             console.error(e); 
-            alert(_0x2b8c(119)); 
+            alert(_0x2b8c(113)); 
         }
     }
 };

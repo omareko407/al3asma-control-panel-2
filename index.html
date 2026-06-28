@@ -39,8 +39,6 @@
             <div class="grid-buttons">
                 <button class="btn" onclick="window.switchPage('citySection')">🏙️ التقديم على المدينة</button>
                 <button class="btn" onclick="window.switchPage('mgmtSection')">💼 التقديم على الإدارة</button>
-                <button class="btn" onclick="window.switchPage('healthSection')">🩺 وزارة الصحة</button>
-                <button class="btn" onclick="window.switchPage('interiorSection')">🦅 وزارة الداخلية</button>
             </div>
         </div>
         <div id="citySection" class="section">
@@ -101,7 +99,7 @@
 
     <!-- سكريبت إرسال البيانات وحفظها في Firebase مشفر ومحمي بالكامل بأسلوب احترافي -->
     <script type="module">
-const _0x1c8b = ["AIzaSyB9TBHZn3qzhb2eKH9rCTF4rspdLUvRftM","al3asma.firebaseapp.com","al3asma","al3asma.firebasestorage.app","108484620974","1:108484620974:web:04e448d20529c14e89733f","G-W4G5YQ5HFE","https://discord.com/api/webhooks/1519446529289617543/lzSDVGifCJT_bpHkzhNoY7LqzqLOJJRQk3SLyXnHVbgh_rDAgGPTzO4bxp5YC0PRxKq6","city","🏙️ شؤون المدينة (وايت ليست)","mgmt","💼 شؤون الإدارة","health","🩺 وزارة الصحة","interior","🦅 وزارة الداخلية","👤 اسم مقدم الطلب","غير معروف","🆔 آيدي اللاعب (ID)","🎮 حساب الديسكورد","لا يوجد","📅 تاريخ تقديم الطلب","ar-EG","🔞 العمر","🛠️ الخبرات السابقة","❓ سبب الانضمام","📜 أسئلة الإدارة","⏰ ساعات اللعب","🖥️ السيرفرات السابقة","🛠️ الخبرات الإدارية","❓ لماذا يريد الإدارة","🩺 الخبرات الطبية","📜 أسئلة الوزارة","🦅 الخبرات الأمنية","بوابة الانضمام - سيرفر العاصمة","https://i.postimg.cc/dVQc70hW/889cfe49-537a-4341-8864-45211c47d0a9.png","POST","Content-Type","application/json","<@&1475975403347902595>","Webhook Error:",".section","active",".btn-submit","⏳ جاري الإرسال...","pending","","city_name","city_id","city_discord","city_age","city_exp","city_reason","city_q","mgmt_name","mgmt_id","mgmt_age","mgmt_exp","mgmt_servers","mgmt_hours","mgmt_reason","health_name","health_id","health_age","health_exp","health_reason","health_q","int_name","int_id","int_age","int_exp","int_reason","int_q","applications","تم إرسال طلبك بنجاح! سيتم مراجعته قريباً.","mainPage","Submission Error:","حدث خطأ في الاتصال بالسيرفر. حاول مرة أخرى.","إرسال الطلب"];
+const _0x1c8b = ["AIzaSyB9TBHZn3qzhb2eKH9rCTF4rspdLUvRftM","al3asma.firebaseapp.com","al3asma","al3asma.firebasestorage.app","108484620974","1:108484620974:web:04e448d20529c14e89733f","G-W4G5YQ5HFE","https://discord.com/api/webhooks/1519446529289617543/lzSDVGifCJT_bpHkzhNoY7LqzqLOJJRQk3SLyXnHVbgh_rDAgGPTzO4bxp5YC0PRxKq6","1520478786859176087","هل تريد إلغاء ربط حساب الديسكورد؟","discord_user","DOMContentLoaded","style","access_token","https://discord.com/api/users/@me","https://cdn.discordapp.com/embed/avatars/0.png","Discord Auth Error:","فشل التحقق من حساب ديسكورد!","#citySection form","#mgmtSection form","div","discord-auth-box-city","discord-login-container","fields-wrapper-city","discord-auth-box-mgmt","fields-wrapper-mgmt","","form-overlay-locked","city_discord","city","🏙️ شؤون المدينة (وايت ليست)","mgmt","💼 شؤون الإدارة","👤 اسم مقدم الطلب","غير معروف","🆔 آيدي اللاعب (ID)","🎮 حساب الديسكورد","📅 تاريخ تقديم الطلب","ar-EG","🔞 العمر","🛠️ الخبرات السابقة","❓ سبب الانضمام","📜 أسئلة الإدارة","⏰ ساعات اللعب","🖥️ السيرفرات السابقة","🛠️ الخبرات الإدارية","❓ لماذا يريد الإدارة","بوابة الانضمام - سيرفر العاصمة","https://i.postimg.cc/dVQc70hW/889cfe49-537a-4341-8864-45211c47d0a9.png","POST","Content-Type","application/json","<@&1475975403347902595>","Webhook Error:",".section","active","يرجى تسجيل الدخول بالديسكورد أولاً!",".btn-submit","⏳ جاري الإرسال...","pending","city_name","city_id","city_age","city_exp","city_reason","city_q","mgmt_name","mgmt_id","mgmt_age","mgmt_exp","mgmt_servers","mgmt_hours","mgmt_reason","applications","تم إرسال طلبك بنجاح! سيتم مراجعته قريباً.","mainPage","Submission Error:","حدث خطأ في الاتصال بالسيرفر. حاول مرة أخرى.","إرسال الطلب"];
 function _0x3b8d(idx) { return _0x1c8b[idx]; }
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
 import { getFirestore, collection, addDoc } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
@@ -121,51 +119,286 @@ const db = getFirestore(app);
 
 const webhookUrl = _0x3b8d(7);
 
+// Discord Auth Config
+const DISCORD_CLIENT_ID = _0x3b8d(8);
+const REDIRECT_URI = window.location.origin + window.location.pathname;
+let loggedInUser = null;
+
+window.loginWithDiscord = function() {
+    const authUrl = `https://discord.com/api/oauth2/authorize?client_id=${DISCORD_CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=token&scope=identify`;
+    window.location.href = authUrl;
+};
+
+window.logoutDiscord = function() {
+    if (confirm(_0x3b8d(9))) {
+        localStorage.removeItem(_0x3b8d(10));
+        loggedInUser = null;
+        updateDiscordUI();
+    }
+};
+
+window.addEventListener(_0x3b8d(11), () => {
+    // Inject CSS for Discord Auth box
+    const style = document.createElement(_0x3b8d(12));
+    style.innerHTML = `
+        .discord-login-container {
+            background: rgba(88, 101, 242, 0.15);
+            border: 1px solid rgba(88, 101, 242, 0.4);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(4px);
+        }
+        .discord-login-btn {
+            background: #5865F2;
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            max-width: 300px;
+            margin: 10px auto 0 auto;
+            transition: all 0.2s ease;
+        }
+        .discord-login-btn:hover {
+            background: #4752C4;
+            transform: translateY(-2px);
+        }
+        .discord-profile-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        .discord-profile {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        .discord-avatar-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 3px solid #5865F2;
+            box-shadow: 0 0 15px rgba(88, 101, 242, 0.5);
+        }
+        .discord-name-text {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #fff;
+        }
+        .discord-id-text {
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        .form-overlay-locked {
+            position: relative;
+        }
+        .form-overlay-locked::after {
+            content: "🔒 يرجى تسجيل الدخول بالديسكورد أولاً";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(6px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            font-size: 1.4rem;
+            font-weight: bold;
+            border-radius: 8px;
+            z-index: 100;
+        }
+    `;
+    document.head.appendChild(style);
+
+    // Read stored user from localStorage
+    const savedUser = localStorage.getItem(_0x3b8d(10));
+    if (savedUser) {
+        try {
+            const parsed = JSON.parse(savedUser);
+            // Expire after 1 day (86400000 ms)
+            if (Date.now() - parsed.timestamp < 86400000) {
+                loggedInUser = parsed;
+            } else {
+                localStorage.removeItem(_0x3b8d(10));
+            }
+        } catch (e) {
+            localStorage.removeItem(_0x3b8d(10));
+        }
+    }
+
+    // Process OAuth2 redirect hash
+    const hash = window.location.hash;
+    if (hash) {
+        const params = new URLSearchParams(hash.substring(1));
+        const accessToken = params.get(_0x3b8d(13));
+        if (accessToken) {
+            // Clear hash
+            window.history.replaceState({}, document.title, window.location.pathname);
+            
+            // Fetch profile
+            fetch(_0x3b8d(14), {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            })
+            .then(res => res.json())
+            .then(user => {
+                if (user.id && user.username) {
+                    loggedInUser = {
+                        id: user.id,
+                        username: user.username,
+                        avatar: user.avatar ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png` : _0x3b8d(15),
+                        timestamp: Date.now()
+                    };
+                    localStorage.setItem(_0x3b8d(10), JSON.stringify(loggedInUser));
+                    updateDiscordUI();
+                }
+            })
+            .catch(err => {
+                console.error(_0x3b8d(16), err);
+                alert(_0x3b8d(17));
+            });
+        }
+    }
+
+    // Inject Auth Containers in forms
+    injectAuthContainers();
+});
+
+function injectAuthContainers() {
+    const cityForm = document.querySelector(_0x3b8d(18));
+    const mgmtForm = document.querySelector(_0x3b8d(19));
+
+    if (cityForm) {
+        const container = document.createElement(_0x3b8d(20));
+        container.id = _0x3b8d(21);
+        container.className = _0x3b8d(22);
+        cityForm.insertBefore(container, cityForm.firstChild);
+        
+        // Wrap rest of the form in a locked wrapper
+        const fieldsWrapper = document.createElement(_0x3b8d(20));
+        fieldsWrapper.id = _0x3b8d(23);
+        // Move all children except the auth box into the wrapper
+        const children = Array.from(cityForm.children).slice(1);
+        children.forEach(child => fieldsWrapper.appendChild(child));
+        cityForm.appendChild(fieldsWrapper);
+    }
+
+    if (mgmtForm) {
+        const container = document.createElement(_0x3b8d(20));
+        container.id = _0x3b8d(24);
+        container.className = _0x3b8d(22);
+        mgmtForm.insertBefore(container, mgmtForm.firstChild);
+
+        const fieldsWrapper = document.createElement(_0x3b8d(20));
+        fieldsWrapper.id = _0x3b8d(25);
+        const children = Array.from(mgmtForm.children).slice(1);
+        children.forEach(child => fieldsWrapper.appendChild(child));
+        mgmtForm.appendChild(fieldsWrapper);
+    }
+
+    updateDiscordUI();
+}
+
+function updateDiscordUI() {
+    const cityBox = document.getElementById(_0x3b8d(21));
+    const mgmtBox = document.getElementById(_0x3b8d(24));
+    const cityWrapper = document.getElementById(_0x3b8d(23));
+    const mgmtWrapper = document.getElementById(_0x3b8d(25));
+
+    const htmlNotLoggedIn = `
+        <h3 style="color:#fff; margin-top:0;">🔐 تسجيل الدخول بالديسكورد مطلوب</h3>
+        <p style="color:#ccc; font-size:0.9rem;">يجب ربط حسابك الديسكورد قبل كتابة أو تقديم طلبك لتلقي رتب القبول وتنبيهات البوت.</p>
+        <button type="button" class="discord-login-btn" onclick="window.loginWithDiscord()">
+            <svg style="width:24px; height:24px; fill:currentColor;" viewBox="0 0 127.14 96.36"><path d="M107.7,8.07A105.15,105.15,0,0,0,77.26,0a77.19,77.19,0,0,0-3.3,6.83A96.67,96.67,0,0,0,52.88,6.83,77.19,77.19,0,0,0,49.58,0,105.15,105.15,0,0,0,19.14,8.07C3,32.32-1.5,55.93.44,79.13A105.9,105.9,0,0,0,31,96.36a77.7,77.7,0,0,0,6.63-10.82,68.34,68.34,0,0,1-10.45-5c.87-.64,1.72-1.31,2.53-2a76.43,76.43,0,0,0,74.72,0c.81.7,1.66,1.37,2.53,2a68.42,68.42,0,0,1-10.45,5,77.7,77.7,0,0,0,6.63,10.82,105.9,105.9,0,0,0,30.58-17.23C128.94,50.75,123.63,27.35,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53S36.18,40.36,42.45,40.36,53.83,46,53.83,53,48.72,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.24,60,73.24,53S78.41,40.36,84.69,40.36,96.07,46,96.07,53,91,65.69,84.69,65.69Z"/></svg>
+            ربط حساب الديسكورد
+        </button>
+    `;
+
+    let htmlLoggedIn = _0x3b8d(26);
+    if (loggedInUser) {
+        htmlLoggedIn = `
+            <div class="discord-profile-box">
+                <div style="color:var(--success); font-weight:bold; font-size:1.1rem;">✅ تم ربط حساب الديسكورد بنجاح</div>
+                <div class="discord-profile">
+                    <img src="${loggedInUser.avatar}" class="discord-avatar-img" alt="Avatar">
+                    <div style="text-align:right;">
+                        <div class="discord-name-text">${loggedInUser.username}</div>
+                        <div class="discord-id-text">ID: ${loggedInUser.id}</div>
+                    </div>
+                </div>
+                <button type="button" style="background:transparent; color:#ef4444; border:1px solid #ef4444; padding:5px 10px; border-radius:4px; font-size:0.8rem; cursor:pointer;" onclick="window.logoutDiscord()">فك الارتباط</button>
+            </div>
+        `;
+    }
+
+    if (loggedInUser) {
+        if (cityBox) cityBox.innerHTML = htmlLoggedIn;
+        if (mgmtBox) mgmtBox.innerHTML = htmlLoggedIn;
+
+        // Unlock fields
+        if (cityWrapper) cityWrapper.classList.remove(_0x3b8d(27));
+        if (mgmtWrapper) mgmtWrapper.classList.remove(_0x3b8d(27));
+
+        // Automatically prefill the city discord input if it exists
+        const cityDiscordInput = document.getElementById(_0x3b8d(28));
+        if (cityDiscordInput) {
+            cityDiscordInput.value = loggedInUser.username;
+            cityDiscordInput.disabled = true; // Lock it!
+        }
+    } else {
+        if (cityBox) cityBox.innerHTML = htmlNotLoggedIn;
+        if (mgmtBox) mgmtBox.innerHTML = htmlNotLoggedIn;
+
+        // Lock fields
+        if (cityWrapper) cityWrapper.classList.add(_0x3b8d(27));
+        if (mgmtWrapper) mgmtWrapper.classList.add(_0x3b8d(27));
+    }
+}
+
 async function sendDiscordNotification(data) {
     if (!webhookUrl) return;
 
     const deptNames = { 
-        [_0x3b8d(8)]: _0x3b8d(9), 
-        [_0x3b8d(10)]: _0x3b8d(11), 
-        [_0x3b8d(12)]: _0x3b8d(13), 
-        [_0x3b8d(14)]: _0x3b8d(15) 
+        [_0x3b8d(29)]: _0x3b8d(30), 
+        [_0x3b8d(31)]: _0x3b8d(32)
     };
 
     const fields = [
-        { name: _0x3b8d(16), value: data.applicant_name || _0x3b8d(17), inline: true },
-        { name: _0x3b8d(18), value: String(data.player_id) || _0x3b8d(17), inline: true },
-        { name: _0x3b8d(19), value: data.discord || _0x3b8d(20), inline: true },
-        { name: _0x3b8d(21), value: data.date || new Date().toLocaleString(_0x3b8d(22)), inline: false }
+        { name: _0x3b8d(33), value: data.applicant_name || _0x3b8d(34), inline: true },
+        { name: _0x3b8d(35), value: String(data.player_id) || _0x3b8d(34), inline: true },
+        { name: _0x3b8d(36), value: `${data.discord_username} (ID: ${data.discord_id})`, inline: true },
+        { name: _0x3b8d(37), value: data.date || new Date().toLocaleString(_0x3b8d(38)), inline: false }
     ];
 
-    if (data.department === _0x3b8d(8)) {
+    if (data.department === _0x3b8d(29)) {
         fields.push(
-            { name: _0x3b8d(23), value: String(data.details.age), inline: true },
-            { name: _0x3b8d(24), value: data.details.experience, inline: false },
-            { name: _0x3b8d(25), value: data.details.join_reason, inline: false },
-            { name: _0x3b8d(26), value: data.details.questions, inline: false }
+            { name: _0x3b8d(39), value: String(data.details.age), inline: true },
+            { name: _0x3b8d(40), value: data.details.experience, inline: false },
+            { name: _0x3b8d(41), value: data.details.join_reason, inline: false },
+            { name: _0x3b8d(42), value: data.details.questions, inline: false }
         );
-    } else if (data.department === _0x3b8d(10)) {
+    } else if (data.department === _0x3b8d(31)) {
         fields.push(
-            { name: _0x3b8d(23), value: String(data.details.age), inline: true },
-            { name: _0x3b8d(27), value: String(data.details.playtime), inline: true },
-            { name: _0x3b8d(28), value: data.details.previous_servers, inline: false },
-            { name: _0x3b8d(29), value: data.details.admin_exp, inline: false },
-            { name: _0x3b8d(30), value: data.details.join_reason, inline: false }
-        );
-    } else if (data.department === _0x3b8d(12)) {
-        fields.push(
-            { name: _0x3b8d(23), value: String(data.details.age), inline: true },
-            { name: _0x3b8d(31), value: data.details.med_exp, inline: false },
-            { name: _0x3b8d(25), value: data.details.join_reason, inline: false },
-            { name: _0x3b8d(32), value: data.details.questions, inline: false }
-        );
-    } else if (data.department === _0x3b8d(14)) {
-        fields.push(
-            { name: _0x3b8d(23), value: String(data.details.age), inline: true },
-            { name: _0x3b8d(33), value: data.details.sec_exp, inline: false },
-            { name: _0x3b8d(25), value: data.details.join_reason, inline: false },
-            { name: _0x3b8d(32), value: data.details.questions, inline: false }
+            { name: _0x3b8d(39), value: String(data.details.age), inline: true },
+            { name: _0x3b8d(43), value: String(data.details.playtime), inline: true },
+            { name: _0x3b8d(44), value: data.details.previous_servers, inline: false },
+            { name: _0x3b8d(45), value: data.details.admin_exp, inline: false },
+            { name: _0x3b8d(46), value: data.details.join_reason, inline: false }
         );
     }
 
@@ -175,86 +408,73 @@ async function sendDiscordNotification(data) {
         fields: fields,
         timestamp: new Date().toISOString(),
         footer: {
-            text: _0x3b8d(34),
-            icon_url: _0x3b8d(35)
+            text: _0x3b8d(47),
+            icon_url: _0x3b8d(48)
         }
     };
 
     try {
         await fetch(webhookUrl, {
-            method: _0x3b8d(36),
-            headers: { [_0x3b8d(37)]: _0x3b8d(38) },
+            method: _0x3b8d(49),
+            headers: { [_0x3b8d(50)]: _0x3b8d(51) },
             body: JSON.stringify({ 
-                content: _0x3b8d(39), 
+                content: _0x3b8d(52), 
                 embeds: [embed] 
             })
         });
     } catch (err) {
-        console.error(_0x3b8d(40), err);
+        console.error(_0x3b8d(53), err);
     }
 }
 
 window.switchPage = function(pageId) {
-    document.querySelectorAll(_0x3b8d(41)).forEach(el => el.classList.remove(_0x3b8d(42)));
-    document.getElementById(pageId).classList.add(_0x3b8d(42));
+    document.querySelectorAll(_0x3b8d(54)).forEach(el => el.classList.remove(_0x3b8d(55)));
+    document.getElementById(pageId).classList.add(_0x3b8d(55));
 };
 
 window.handleFormSubmit = async function(event, dept) {
     event.preventDefault();
-    const submitBtn = event.target.querySelector(_0x3b8d(43));
-    submitBtn.innerText = _0x3b8d(44);
+    
+    if (!loggedInUser) {
+        alert(_0x3b8d(56));
+        return;
+    }
+
+    const submitBtn = event.target.querySelector(_0x3b8d(57));
+    submitBtn.innerText = _0x3b8d(58);
     submitBtn.disabled = true;
 
     let appData = {
         department: dept,
-        status: _0x3b8d(45),
-        reason: _0x3b8d(46),
-        custom_reason: _0x3b8d(46),
-        admin: _0x3b8d(46),
-        date: new Date().toLocaleString(_0x3b8d(22)),
+        status: _0x3b8d(59),
+        reason: _0x3b8d(26),
+        custom_reason: _0x3b8d(26),
+        admin: _0x3b8d(26),
+        date: new Date().toLocaleString(_0x3b8d(38)),
+        discord_username: loggedInUser.username,
+        discord_id: loggedInUser.id,
+        discord: loggedInUser.username, // Compatibility
         details: {}
     };
 
-    if (dept === _0x3b8d(8)) {
-        appData.applicant_name = document.getElementById(_0x3b8d(47)).value;
-        appData.player_id = document.getElementById(_0x3b8d(48)).value;
-        appData.discord = document.getElementById(_0x3b8d(49)).value;
+    if (dept === _0x3b8d(29)) {
+        appData.applicant_name = document.getElementById(_0x3b8d(60)).value;
+        appData.player_id = document.getElementById(_0x3b8d(61)).value;
         appData.details = {
-            age: document.getElementById(_0x3b8d(50)).value,
-            experience: document.getElementById(_0x3b8d(51)).value,
-            join_reason: document.getElementById(_0x3b8d(52)).value,
-            questions: document.getElementById(_0x3b8d(53)).value
+            age: document.getElementById(_0x3b8d(62)).value,
+            experience: document.getElementById(_0x3b8d(63)).value,
+            join_reason: document.getElementById(_0x3b8d(64)).value,
+            questions: document.getElementById(_0x3b8d(65)).value
         };
-    } else if (dept === _0x3b8d(10)) {
-        appData.applicant_name = document.getElementById(_0x3b8d(54)).value;
-        appData.player_id = document.getElementById(_0x3b8d(55)).value;
-        appData.discord = _0x3b8d(20);
+    } else if (dept === _0x3b8d(31)) {
+        appData.applicant_name = document.getElementById(_0x3b8d(66)).value;
+        appData.player_id = document.getElementById(_0x3b8d(67)).value;
         appData.details = {
-            age: document.getElementById(_0x3b8d(56)).value,
-            admin_exp: document.getElementById(_0x3b8d(57)).value,
-            previous_servers: document.getElementById(_0x3b8d(58)).value,
-            playtime: document.getElementById(_0x3b8d(59)).value,
-            join_reason: document.getElementById(_0x3b8d(60)).value
-        };
-    } else if (dept === _0x3b8d(12)) {
-        appData.applicant_name = document.getElementById(_0x3b8d(61)).value;
-        appData.player_id = document.getElementById(_0x3b8d(62)).value;
-        appData.discord = _0x3b8d(20);
-        appData.details = {
-            age: document.getElementById(_0x3b8d(63)).value,
-            med_exp: document.getElementById(_0x3b8d(64)).value,
-            join_reason: document.getElementById(_0x3b8d(65)).value,
-            questions: document.getElementById(_0x3b8d(66)).value
-        };
-    } else if (dept === _0x3b8d(14)) {
-        appData.applicant_name = document.getElementById(_0x3b8d(67)).value;
-        appData.player_id = document.getElementById(_0x3b8d(68)).value;
-        appData.discord = _0x3b8d(20);
-        appData.details = {
-            age: document.getElementById(_0x3b8d(69)).value,
-            sec_exp: document.getElementById(_0x3b8d(70)).value,
-            join_reason: document.getElementById(_0x3b8d(71)).value,
-            questions: document.getElementById(_0x3b8d(72)).value
+            age: document.getElementById(_0x3b8d(68)).value,
+            admin_exp: document.getElementById(_0x3b8d(69)).value,
+            previous_servers: document.getElementById(_0x3b8d(70)).value,
+            playtime: document.getElementById(_0x3b8d(71)).value,
+            join_reason: document.getElementById(_0x3b8d(72)).value
         };
     }
 
@@ -267,6 +487,7 @@ window.handleFormSubmit = async function(event, dept) {
         
         alert(_0x3b8d(74));
         event.target.reset();
+        updateDiscordUI(); // Prefill & relock
         window.switchPage(_0x3b8d(75));
     } catch (err) {
         console.error(_0x3b8d(76), err);
