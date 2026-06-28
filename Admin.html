@@ -675,7 +675,7 @@ function renderSchemaFieldsList() {
             html += `
                 <div style="background: rgba(0,0,0,0.3); border: 1px solid #222; padding: 12px 15px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
                     <div>
-                        <strong style="color: #fff;">\dots{index + 1}. ${field.label}</strong>
+                        <strong style="color: #fff;">${index + 1}. ${field.label}</strong>
                         <span style="background: rgba(255,255,255,0.05); color: #aaa; font-size: 0.8rem; padding: 3px 8px; border-radius: 4px; margin-right: 10px;">نوع الإجابة: ${typeLabel}</span>
                     </div>
                     <button class="btn-action" style="background: var(--danger); color: #fff; padding: 5px 10px; font-size: 0.9rem;" onclick="window.deleteFieldFromSchema(${index})">🗑️ حذف</button>
