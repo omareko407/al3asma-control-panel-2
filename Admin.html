@@ -466,7 +466,7 @@ function renderAll() {
         allApps.filter(app => app.department === dept).forEach(app => {
             counts[app.status]++;
             let trContent = `<td>${app.applicant_name}</td><td>${app.player_id}</td>`;
-            trContent += `<td>\thapp.discord_username || "لا يوجد"}</td>`;
+            trContent += `<td>${app.discord_username || "لا يوجد"}</td>`;
             
             if (app.status === _0x2b8c(47)) {
                 pendingHTML += `<tr class="search-row"> ${trContent} <td>${app.date}</td> <td><span class="status pending">معلق</span></td> <td><button class="btn-action" onclick="window.openReview('${app.id}')">مراجعة</button></td> </tr>`;
